@@ -8,6 +8,8 @@ export interface Waifu {
     weight?: number;
     birthday?: Date;
     bio?: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface CreateWaifuInput {

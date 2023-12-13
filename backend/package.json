@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --watch src src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --watch src src/app.ts",
+    "docker-up": "docker-compose up -d",
+    "docker-down": "docker-compose down"
   },
   "keywords": [],
   "author": "RockyPher",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.7.0",
     "express": "^4.18.2",
-    "joi": "^17.11.0"
+    "joi": "^17.11.0",
+    "prisma": "^5.7.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",

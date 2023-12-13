@@ -1,33 +1,30 @@
+
+import prisma from "../../services/prisma"
 import { CreateWaifuInput, Waifu } from "./WaifuModel"
 
-const waifuList: Waifu[] = []
 
 export async function getWaifuRepository(id: number) {
-    const waifu = waifuList.find(waifu => waifu.id === id)
-    if (!waifu) {
-        throw new Error("WaifuNotFound")
-    }
-    return waifu
+    return await prisma.waifu.findUnique({
+        where: {
+            id
+        }
+    })
 }
 
 export async function getWaifusRepository() {
-    return waifuList
+    return await prisma.waifu.findMany()
 }
 
 export async function createWaifuRepository(data: CreateWaifuInput) {
-    const waifu: Waifu = {
-        id: waifuList.length + 1,
-        ...data
-    }
-    waifuList.push(waifu)
-    return waifu
+    return await prisma.waifu.create({
+        data
+    })
 }
 
 export async function deleteWaifuRepository(id: number) {
-    const waifu = waifuList.find(waifu => waifu.id === id)
-    if (!waifu) {
-        throw new Error("WaifuNotFound")
-    }
-    waifuList.splice(waifuList.indexOf(waifu), 1)
-    return waifu
+    return await prisma.waifu.delete({
+        where: {
+            id
+        }
+    })
 }

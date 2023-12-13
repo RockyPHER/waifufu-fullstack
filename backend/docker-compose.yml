@@ -1,0 +1,17 @@
+services:
+  waifudb:
+    image: mariadb
+    restart: always
+    volumes:
+      - waifudb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: waifudb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_TCP_PORT: 3306
+    ports:
+      - 3306:3306
+
+volumes:
+  waifudb-data:
