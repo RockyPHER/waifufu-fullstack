@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
 import api from "./services/api";
+import { useQuery } from "react-query";
+import { AxiosResponse } from "axios";
 
 
 export interface Waifu {
@@ -18,18 +19,20 @@ export interface Waifu {
 
 export default function App() {
   
-  const [waifus, setWaifus] = useState<Waifu[]>([]);
+  const { data, isLoading, error, isError } = useQuery<AxiosResponse<Waifu[]>, Error>("waifus", getWaifus);
 
-  async function getWaifus () {
-    const res = await api.get<Waifu[]>("/waifus");
-    const waifus = res.data;
-    setWaifus(waifus);
+  async function getWaifus() {
+    return await api.get<Waifu[]>("/waifus")
   }
 
-  useEffect(() => {
-    getWaifus();
-  },[])
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Ocorreu o seguinte erro: {error.message}</div>;
+  }
 
+  const waifus = data?.data
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="bg-white bg-opacity-40 p-3 rounded">
