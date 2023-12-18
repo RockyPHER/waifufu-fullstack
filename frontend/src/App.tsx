@@ -1,60 +1,47 @@
-import api from "./services/api";
-import { useQuery } from "react-query";
-import { AxiosResponse } from "axios";
-
-
-export interface Waifu {
-  id: number,
-  name: string,
-  age: number,
-  hairColor?: string,
-  eyeColor?: string,
-  height?: number,
-  weight?: number,
-  birthday?: Date,
-  bio?: string,
-  createdAt: Date,
-  updatedAt: Date,
-}
+// import { useQuery } from "@tanstack/react-query";
+// import { AxiosError, AxiosResponse } from "axios";
+// import { getWaifus } from "./api/waifus/waifusApi";
+// import Waifu from "./api/waifus/WaifusApiModel";
+import { Carousel } from "./components/Carousel/Carousel";
 
 export default function App() {
-  
-  const { data, isLoading, error, isError } = useQuery<AxiosResponse<Waifu[]>, Error>("waifus", getWaifus);
 
-  async function getWaifus() {
-    return await api.get<Waifu[]>("/waifus")
-  }
+  // const MyQuery = useQuery<AxiosResponse<Waifu[]>, AxiosError>({
+  //   queryKey: ["waifus"],
+  //   queryFn: getWaifus
+  // })
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (isError) {
-    return <div>Ocorreu o seguinte erro: {error.message}</div>;
-  }
 
-  const waifus = data?.data
+  const waifusMock = [
+    {
+      id: 1,
+      name: "Hatsune Miku",
+      age: 16,
+      imageUrl: "https://r4.wallpaperflare.com/wallpaper/997/47/663/anime-anime-girls-hatsune-miku-blue-hair-wallpaper-4b06ec1d63512f3945c49ba94d4c7cb0.jpg",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      id: 2,
+      name: "Hatsune Miku",
+      age: 16,
+      imageUrl: "https://r4.wallpaperflare.com/wallpaper/406/423/783/vocaloid-hatsune-miku-twintails-headphones-wallpaper-d9f038ed513a0deb66b7d82f9071560d.jpg",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      id: 3,
+      name: "Hatsune Miku",
+      age: 16,
+      imageUrl: "https://r4.wallpaperflare.com/wallpaper/883/495/782/anime-anime-girls-hatsune-miku-vocaloid-wallpaper-120192901d26fedbca5892c5c048e922.jpg",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+  ]
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <div className="bg-white bg-opacity-40 p-3 rounded">
-        <table className=" rounded-lg">
-          <thead className="border-b-2">
-            <tr>
-              <th>Id</th>
-              <th>Nome</th>
-              <th>Idade</th>
-            </tr>
-          </thead>
-          <tbody className="">
-            {waifus && waifus.map((waifu) => (
-              <tr key={waifu.id}>
-                <th>{waifu.id}</th>
-                <th>{waifu.name}</th>
-                <th>{waifu.age}</th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Carousel waifus={waifusMock} />
     </div>
   );
 }
