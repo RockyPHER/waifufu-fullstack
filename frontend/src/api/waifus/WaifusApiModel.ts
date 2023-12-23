@@ -8,7 +8,7 @@ export default interface Waifu {
   height?: number;
   weight?: number;
   origin?: string;
-  birthday?: Date;
+  birthday?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,7 +21,7 @@ interface WaifuData {
   eyeColor?: string;
   height?: number;
   weight?: number;
-  birthday?: Date;
+  birthday?: string;
   origin?: string;
 }
 
