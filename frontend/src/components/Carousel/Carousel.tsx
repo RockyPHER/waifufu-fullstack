@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Waifu from "../../api/waifus/WaifusApiModel";
 import RightIcon from "@/assets/right.svg?react"
 import LeftIcon from "@/assets/left.svg?react"
@@ -9,11 +9,15 @@ interface CarouselProps {
 
 interface WaifuProfileProps {
     waifu: Waifu;
+    handleWaifuMap: (info : Waifu) => void;
 }
 
 export function Carousel({ waifus }: CarouselProps) {
 
+    let waifuReInfo: Waifu;
     const [currentWaifuIdx, setCurrentWaifuIdx] = useState(0);
+    let waifuInitialValue = waifus[currentWaifuIdx];
+    const [waifuInfo, setWaifuInfo] = useState<Waifu>(waifuInitialValue);
 
     function next() {
         setCurrentWaifuIdx((prev: number) => (prev + 1) % waifus.length)
@@ -21,6 +25,15 @@ export function Carousel({ waifus }: CarouselProps) {
     function previous() {
         setCurrentWaifuIdx((prev: number) => (prev - 1 + waifus.length) % waifus.length)
     }
+
+    function handleWaifuMap(info: Waifu) {
+        
+        setWaifuInfo(info)
+        waifuReInfo = info
+
+    }
+
+    useEffect(() => setWaifuInfo(waifuReInfo), [waifuInfo]);
 
     return (
         <div className="h-screen flex items-center">
@@ -34,33 +47,34 @@ export function Carousel({ waifus }: CarouselProps) {
                 style={{ transform: `translateX(-${currentWaifuIdx * 100}vw)` }}>
                 {
                     waifus.map((waifu) => (
-                        <WaifuProfile key={waifu.id} waifu={waifu} />
+                        <WaifuProfile key={waifu.id} waifu={waifu} handleWaifuMap={handleWaifuMap} />
                     ))
                 }
+            </div>
+            <div>
+                <h1 className="text-4xl text-white font-bold">{waifuInfo.name}</h1>
+                <p className="text-white">{waifuInfo.age}</p>
+                <div>
+                    <p className="text-white">{waifuInfo.height}</p>
+                    <p className="text-white">{waifuInfo.weight}</p>
+                </div>
+                <div>
+                    <p>{waifuInfo.eyeColor}</p>
+                    <p>{waifuInfo.hairColor}</p>
+                </div>
+                <p className="text-white">{waifuInfo.birthday}</p>
+                <p className="text-white">{waifuInfo.origin}</p>
             </div>
         </div>
     )
 
 }
 
-export function WaifuProfile({ waifu }: WaifuProfileProps) {
+export function WaifuProfile({ waifu, handleWaifuMap }: WaifuProfileProps) {
+
+    handleWaifuMap(waifu);
 
     return (
-        <div className="w-screen h-screen bg-cover" style={{ backgroundImage: `url(${waifu.imageUrl})` }}>
-            <div className="absolute p-10 bottom-0 translate-y-[-10%] bg-gradient-to-r from-black to-transparent w-[50vw] h-[45vh]">
-                <h1 className="text-4xl text-white font-bold">{waifu.name}</h1>
-                <p className="text-white">{waifu.age}</p>
-                <div>
-                    <p className="text-white">{waifu.height}</p>
-                    <p className="text-white">{waifu.weight}</p>
-                </div>
-                <div>
-                    <p>{waifu.eyeColor}</p>
-                    <p>{waifu.hairColor}</p>
-                </div>
-                <p className="text-white">{waifu.birthday}</p>
-                <p className="text-white">{waifu.origin}</p>
-            </div>
-        </div>
+        <div className="w-screen h-screen bg-cover" style={{ backgroundImage: `url(${waifu.imageUrl})` }}/>
     )
 }
