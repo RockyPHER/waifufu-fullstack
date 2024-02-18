@@ -3,8 +3,6 @@ import { AxiosError, AxiosResponse } from "axios";
 import { Slider } from "./components/slider";
 import Waifu from "./api/waifus/model";
 import { getWaifus } from "./api/waifus/fetch";
-import { WaifuCard } from "./components/waifucard";
-import WaifuInfo from "./components/waifuInfo";
 
 export default function App() {
   const MyQuery = useQuery<AxiosResponse<Waifu[]>, AxiosError>({
@@ -16,13 +14,7 @@ export default function App() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <Slider totalPages={waifusData?.length || 0}>
-        <WaifuCard />
-      </Slider>
-      {
-waifusData &&
-      <WaifuInfo waifu={waifusData?} />
-      }
+      <Slider waifuData={waifusData} />
     </div>
   );
 }

@@ -5,13 +5,12 @@ import Waifu from "../api/waifus/model";
 import WaifuCard from "./waifuCard";
 
 interface SliderProps {
-  totalPages: number;
-  waifuData: Waifu[];
-  children: React.ReactNode;
+  waifuData?: Waifu[];
 }
 
-export function Slider({ totalPages, children, waifuData }: SliderProps) {
+export function Slider({ waifuData }: SliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const totalPages = waifuData?.length || 1;
 
   function next() {
     setCurrentIndex((prev: number) => (prev + 1) % totalPages);
@@ -49,10 +48,8 @@ export function Slider({ totalPages, children, waifuData }: SliderProps) {
         className="w-auto h-full absolute left-0 flex transition-all duration-300"
         style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
       >
-        <WaifuCard
-          backgroundUrl={waifuData[currentIndex].backgroundUrl}
-          heroUrl={waifuData[currentIndex].heroUrl}
-        />
+        {waifuData &&
+          waifuData.map((waifu) => <WaifuCard key={waifu.id} {...waifu} />)}
       </div>
 
       {/* pagination buttons */}
