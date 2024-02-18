@@ -8,7 +8,8 @@ export interface Waifu {
   weight?: number;
   birthday?: string;
   origin?: string;
-  imageUrl?: string;
+  backgroundUrl?: string;
+  heroUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,5 +23,6 @@ export interface CreateWaifuInput {
   weight?: number;
   birthday?: string;
   origin?: string;
-  imageUrl?: string;
+  backgroundUrl?: string;
+  heroUrl?: string;
 }

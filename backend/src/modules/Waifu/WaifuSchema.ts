@@ -9,5 +9,6 @@ export const CreateWaifuBodySchema = Joi.object({
   weight: Joi.number(),
   birthday: Joi.string(),
   origin: Joi.string(),
-  imageUrl: Joi.string().uri(),
+  backgroundUrl: Joi.string().uri(),
+  heroUrl: Joi.string().uri(),
 });

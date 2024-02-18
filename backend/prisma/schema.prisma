@@ -11,18 +11,19 @@ datasource db {
 }
 
 model Waifu {
-  id        Int      @id @default(autoincrement())
-  name      String
-  age       Int
-  hairColor String?
-  eyeColor  String?
-  height    Int?
-  weight    Int?
-  birthday  String?
-  origin    String?
-  imageUrl  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  name          String
+  age           Int
+  hairColor     String?
+  eyeColor      String?
+  height        Int?
+  weight        Int?
+  birthday      String?
+  origin        String?
+  backgroundUrl String?
+  heroUrl       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("waifus")
 }

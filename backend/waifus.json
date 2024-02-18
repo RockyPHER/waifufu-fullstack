@@ -1,69 +1,78 @@
-{
-    "name": "Hatsune Miku",
-    "age": 16,
-    "height": "158",
-    "weight": "42",
-    "birthday": "August 31",
-    "origin": "Vocaloid",
-    "hairColor": "Teal",
-    "eyeColor": "Turquoise",
-    "imageUrl": "https://r4.wallpaperflare.com/wallpaper/997/47/663/anime-anime-girls-hatsune-miku-blue-hair-wallpaper-4b06ec1d63512f3945c49ba94d4c7cb0.jpg",
-},
-{
-    "name": "Kitagawa Marin",
-    "age": 15,
-    "height": "164",
-    "weight": "50",
-    "birthday": "March 5",
-    "imageUrl": "https://wallpapercave.com/wp/wp12530504.jpg",
-    "origin": "Sono Bisque Doll",
-    "hairColor": "Blonde",
-    "eyeColor": "Dark Pink"
-},
-{
-    "name": "Rei Ayanami",
-    "age": 14,
-    "height": "143",
-    "weight": "43",
-    "birthday": "March 30",
-    "imageUrl": "https://wallpapercave.com/wp/wp6405922.jpg",
-    "origin": "Neon Genesis Evangelion",
-    "hairColor": "Celeste",
-    "eyeColor": "Red"
-},
-{
-    "name": "Violet Evergarden",
-    "age": 18,
-    "height": "161",
-    "weight": "60",
-    "birthday": "September 25",
-    "imageUrl": "https://w.wallhaven.cc/full/2y/wallhaven-2y18em.png",
-    "origin": "Violet Evergarden",
-    "hairColor": "Blonde",
-    "eyeColor": "Blue"
-},
-{
-    "name": "Zero Two",
-    "age": 0,
-    "height": "170",
-    "weight": "57",
-    "birthday": "unknown",
-    "imageUrl": "https://images4.alphacoders.com/908/908470.jpg",
-    "origin": "Darling in the FRANXX",
-    "hairColor": "Pink",
-    "eyeColor": "Emerald"
-},
-{
-    "name": "Megumin",
-    "age": 14,
-    "height": "148",
-    "weight": "47",
-    "birthday": "December 4",
-    "imageUrl": "https://images6.alphacoders.com/996/996949.jpg",
-    "origin": "KonoSuba",
-    "hairColor": "Black",
-    "eyeColor": "Red"
-}
+[
+
+    {
+        "name": "Hatsune Miku",
+        "age": 16,
+        "height": "158",
+        "weight": "42",
+        "birthday": "August 31",
+        "origin": "Vocaloid",
+        "hairColor": "Teal",
+        "eyeColor": "Turquoise",
+        "backgroundUrl": "https://r4.wallpaperflare.com/wallpaper/997/47/663/anime-anime-girls-hatsune-miku-blue-hair-wallpaper-4b06ec1d63512f3945c49ba94d4c7cb0.jpg",
+        "heroUrl": ""
+    },
+    {
+        "name": "Kitagawa Marin",
+        "age": 15,
+        "height": "164",
+        "weight": "50",
+        "birthday": "March 5",
+        "backgroundUrl": "https://wallpapercave.com/wp/wp12530504.jpg",
+        "heroUrl": "",
+        "origin": "Sono Bisque Doll",
+        "hairColor": "Blonde",
+        "eyeColor": "Dark Pink"
+    },
+    {
+        "name": "Rei Ayanami",
+        "age": 14,
+        "height": "143",
+        "weight": "43",
+        "birthday": "March 30",
+        "backgroundUrl": "https://wallpapercave.com/wp/wp6405922.jpg",
+        "heroUrl": "",
+        "origin": "Neon Genesis Evangelion",
+        "hairColor": "Celeste",
+        "eyeColor": "Red"
+    },
+    {
+        "name": "Violet Evergarden",
+        "age": 18,
+        "height": "161",
+        "weight": "60",
+        "birthday": "September 25",
+        "backgroundUrl": "https://w.wallhaven.cc/full/2y/wallhaven-2y18em.png",
+        "heroUrl": "",
+        "origin": "Violet Evergarden",
+        "hairColor": "Blonde",
+        "eyeColor": "Blue"
+    },
+    {
+        "name": "Zero Two",
+        "age": 0,
+        "height": "170",
+        "weight": "57",
+        "birthday": "unknown",
+        "backgroundUrl": "https://images4.alphacoders.com/908/908470.jpg",
+        "heroUrl": "",
+        "origin": "Darling in the FRANXX",
+        "hairColor": "Pink",
+        "eyeColor": "Emerald"
+    },
+    {
+        "name": "Megumin",
+        "age": 14,
+        "height": "148",
+        "weight": "47",
+        "birthday": "December 4",
+        "backgroundUrl": "https://images6.alphacoders.com/996/996949.jpg",
+        "heroUrl": "",        
+        "origin": "KonoSuba",
+        "hairColor": "Black",
+        "eyeColor": "Red"
+    }
+]
 
 
 
