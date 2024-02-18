@@ -1,5 +1,5 @@
 import api from "../api";
-import Waifu, { CreateWaifuData, UpdateWaifuData } from "./WaifusApiModel";
+import Waifu, { CreateWaifuData, UpdateWaifuData } from "./model";
 
 export async function getWaifus() {
   return await api.get<Waifu[]>("/waifus");
