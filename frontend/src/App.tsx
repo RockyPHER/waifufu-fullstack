@@ -12,6 +12,8 @@ export default function App() {
 
   const waifusData = MyQuery.data?.data;
 
+  console.log(waifusData);
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <Slider waifuData={waifusData} />

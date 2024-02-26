@@ -10,7 +10,7 @@
         "hairColor": "Teal",
         "eyeColor": "Turquoise",
         "backgroundUrl": "https://r4.wallpaperflare.com/wallpaper/997/47/663/anime-anime-girls-hatsune-miku-blue-hair-wallpaper-4b06ec1d63512f3945c49ba94d4c7cb0.jpg",
-        "heroUrl": "./images/miku.png"
+        "heroUrl": "https://ibb.co/3pp0tD5"
     },
     {
         "name": "Kitagawa Marin",
@@ -18,8 +18,8 @@
         "height": "164",
         "weight": "50",
         "birthday": "March 5",
-        "backgroundUrl": "https://wallpapercave.com/wp/wp12530504.jpg",
-        "heroUrl": "./images/marin.png",
+        "backgroundUrl": "https://w.forfun.com/fetch/c2/c23ecac50fe951bf417a6351cbff798d.jpeg",
+        "heroUrl": "https://ibb.co/2YVg5wm",
         "origin": "Sono Bisque Doll",
         "hairColor": "Blonde",
         "eyeColor": "Dark Pink"
@@ -31,7 +31,7 @@
         "weight": "43",
         "birthday": "March 30",
         "backgroundUrl": "https://wallpapercave.com/wp/wp6405922.jpg",
-        "heroUrl": "./images/rei.png",
+        "heroUrl": "https://ibb.co/pKSQX7k",
         "origin": "Neon Genesis Evangelion",
         "hairColor": "Celeste",
         "eyeColor": "Red"
@@ -43,7 +43,7 @@
         "weight": "60",
         "birthday": "September 25",
         "backgroundUrl": "https://w.wallhaven.cc/full/2y/wallhaven-2y18em.png",
-        "heroUrl": "./images/violet.png",
+        "heroUrl": "https://ibb.co/34Hn3mV",
         "origin": "Violet Evergarden",
         "hairColor": "Blonde",
         "eyeColor": "Blue"
@@ -55,7 +55,7 @@
         "weight": "57",
         "birthday": "unknown",
         "backgroundUrl": "https://images4.alphacoders.com/908/908470.jpg",
-        "heroUrl": "./images/zero.png",
+        "heroUrl": "https://ibb.co/mR4yPMR",
         "origin": "Darling in the FRANXX",
         "hairColor": "Pink",
         "eyeColor": "Emerald"
@@ -67,18 +67,10 @@
         "weight": "47",
         "birthday": "December 4",
         "backgroundUrl": "https://images6.alphacoders.com/996/996949.jpg",
-        "heroUrl": "./images/megumin.png",        
+        "heroUrl": "https://ibb.co/n6MWqfS",        
         "origin": "KonoSuba",
         "hairColor": "Black",
         "eyeColor": "Red"
     }
 ]
 
-
-
-// HATSUNE_MIKU=;
-// MARIN_KITAGAWA=;
-// VIOLET_EVERGARDEN=;
-// REI_AYANAMI=;
-// ZERO_TWO=;
-// MEGUMIN=;
