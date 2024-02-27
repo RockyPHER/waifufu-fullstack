@@ -7,11 +7,9 @@ I don't wanted to pay too much time learning about the language, my main goal wa
 
 ## Technologies used
 
-### Backend
-[![My Skills](https://skillicons.dev/icons?i=ts,express,prisma,mariadb)](https://skillicons.dev)
-
-### Frontend
-[![My Skills](https://skillicons.dev/icons?i=ts,react,vite,tailwind)](https://skillicons.dev)
+|                                           **BACKEND**                                            |                                         **FRONTEND**                                          |
+| :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
+| [![My Skills](https://skillicons.dev/icons?i=ts,express,prisma,mariadb)](https://skillicons.dev) | [![My Skills](https://skillicons.dev/icons?i=ts,react,vite,tailwind)](https://skillicons.dev) |
 
 ## Concepts learned
 - **Backend principles**
