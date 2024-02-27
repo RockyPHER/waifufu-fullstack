@@ -19,12 +19,18 @@ export function Slider({ waifuData }: SliderProps) {
     setCurrentIndex((prev: number) => (prev - 1 + totalPages) % totalPages);
   }
 
+  function handleNext() {
+    next();
+  }
+  function handlePrevious() {
+    previous();
+  }
   return (
     <div className="w-full h-full relative overflow-hidden flex items-center">
       {/* navigation buttons */}
       <div className="w-[80px] h-full absolute right-0 z-30 group">
         <button
-          onClick={next}
+          onClick={handleNext}
           className="w-auto h-full absolute z-30 py-2 top-0 right-0 translate-x-24 group-hover:translate-x-0 transition-all flex justify-start items-center"
         >
           <div className="w-full h-full absolute z-30 bg-gradient-to-l from-black to-transparent opacity-0 group-hover:opacity-80" />
@@ -33,7 +39,7 @@ export function Slider({ waifuData }: SliderProps) {
       </div>
       <div className="w-[80px] h-full absolute left-0 z-30 group">
         <button
-          onClick={previous}
+          onClick={handlePrevious}
           className="w-auto h-full absolute z-30 py-2 top-0 left-0 -translate-x-24 group-hover:translate-x-0 transition-all flex justify-start items-center"
         >
           <div className="w-full h-full absolute z-30 bg-gradient-to-r from-black to-transparent opacity-0 group-hover:opacity-80" />

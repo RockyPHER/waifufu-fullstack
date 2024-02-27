@@ -13,7 +13,7 @@ export default {
         },
         "bounce-left": {
           "0%, 100%": {
-            transform: "translateX(15%)",
+            transform: "translateX(10%)",
             "animation-timing-function": "cubic-bezier(0.8,0,1,1)",
           },
           "50%": {
@@ -23,7 +23,7 @@ export default {
         },
         "bounce-right": {
           "0%, 100%": {
-            transform: "translateX(-15%)",
+            transform: "translateX(-10%)",
             "animation-timing-function": "cubic-bezier(0.8,0,1,1)",
           },
           "50%": {
@@ -34,6 +34,10 @@ export default {
         "onload-left": {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(0)" },
+        },
+        "unload-left": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
         },
         "onload-right": {
           "0%": { transform: "translateX(100%)" },
@@ -51,9 +55,23 @@ export default {
       animation: {
         wiggle: "wiggle 1s ease-in-out infinite",
         "bounce-left": "bounce-left 1s ease-in-out infinite",
-        "bounce-right": "bounce-right 1s ease-in-out infinite",
-        "onload-left": "onload-left 1s ease-in-out",
-        "onload-right": "onload-right 1s ease-in-out",
+        "onload-left-1": "onload-left 0.2s ease-in-out",
+        "onload-left-2": "onload-left 0.4s ease-in-out",
+        "onload-left-3": "onload-left 0.6s ease-in-out",
+        "onload-left-4": "onload-left 0.8s ease-in-out",
+        "onload-left-5": "onload-left 1s ease-in-out",
+        "onload-left-6": "onload-left 1.2s ease-in-out",
+        "onload-left-7": "onload-left 1.4s ease-in-out",
+        "onload-left-8": "onload-left 1.6s ease-in-out",
+        "unload-left": "onload-left 0.5s ease-in-out",
+        "onload-right-1": "onload-right-1 1s ease-in-out",
+        "onload-right-1.1": "onload-right-1.1 1.1s ease-in-out",
+        "onload-right-1.2": "onload-right-1.2 1.2s ease-in-out",
+        "onload-right-1.3": "onload-right-1.3 1.3s ease-in-out",
+        "onload-right-1.4": "onload-right-1.4 1.4s ease-in-out",
+        "onload-right-1.5": "onload-right-1.5 1.5s ease-in-out",
+        "onload-right-1.6": "onload-right-1.6 1.6s ease-in-out",
+        "onload-right-1.7": "onload-right-1.7 1.7s ease-in-out",
         "onload-up": "onload-up 1s ease-in-out",
         "onload-down": "onload-down 1s ease-in-out",
       },
