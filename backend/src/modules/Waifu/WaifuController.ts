@@ -66,11 +66,20 @@ export async function createWaifus(req: Request, res: Response) {
       item.hasOwnProperty("error")
     );
 
+    const okInputs = validateInputs.filter(
+      (item) => !item.hasOwnProperty("error")
+    );
+
+    const waifus = await Promise.all(
+      okInputs.map(async (input) => {
+        return await createWaifuService(input);
+      })
+    );
+
     if (validateErrors.length > 0) {
       return res.status(400).json({ errors: validateErrors });
     }
 
-    const waifus = await createWaifusService(inputs);
     res.status(201).json(waifus);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
