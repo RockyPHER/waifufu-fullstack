@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/waifus/:id", getWaifu);
 router.get("/waifus", getWaifus);
 router.post("/waifus", createWaifu);
-router.post("/waifus", createWaifus);
+router.post("/waifus/many", createWaifus);
 router.delete("/waifus/:id", deleteWaifu);
 router.patch("/waifus/:id", updateWaifu);
 
