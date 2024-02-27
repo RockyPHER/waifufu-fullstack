@@ -1,17 +1,29 @@
+// import { useQuery } from "@tanstack/react-query";
+// import { Slider } from "../components/slider";
+// import { AxiosError, AxiosResponse } from "axios";
+// import Waifu from "../api/waifus/model";
+// import { getWaifus } from "../api/waifus/fetch";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Circle } from "lucide-react";
-import WaifuInfo from "./waifuInfo";
-import Waifu from "../api/waifus/model";
-import WaifuCard from "./waifuCard";
+import WaifuInfo from "../components/waifuInfo";
+import WaifuCard from "../components/waifuCard";
+import { useQuery } from "@tanstack/react-query";
+import { getWaifus } from "../api/waifus/fetch";
 
-interface SliderProps {
-  waifuData?: Waifu[];
-}
+export function Slider() {
+  //   const MyQuery = useQuery<AxiosResponse<Waifu[]>, AxiosError>({
+  //     queryKey: ["waifus"],
+  //     queryFn: getWaifus,
+  //   });
+  //   const waifusData = MyQuery.data?.data;
+  // ******** COMMENTED FOR DEPLOYMENT ********
 
-export function Slider({ waifuData }: SliderProps) {
+  const { data } = useQuery({ queryKey: [Object], queryFn: getWaifus });
+  const waifuData = data;
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalPages = waifuData?.length || 1;
 
+  console.log(data);
   function next() {
     setCurrentIndex((prev: number) => (prev + 1) % totalPages);
   }
