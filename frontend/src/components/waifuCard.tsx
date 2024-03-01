@@ -3,7 +3,7 @@ interface WaifuCardProps {
   heroUrl: string;
 }
 
-export default function WaifuCard({ backgroundUrl, heroUrl }: WaifuCardProps) {
+export default function WaifuCard({ backgroundUrl }: WaifuCardProps) {
   return (
     <div className="size-screen relative">
       {/* <img
