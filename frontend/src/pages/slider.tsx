@@ -6,9 +6,10 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Circle } from "lucide-react";
 import WaifuInfo from "../components/waifuInfo";
-import WaifuCard from "../components/waifuCard";
 import { useQuery } from "@tanstack/react-query";
 import { getWaifus } from "../api/waifus/fetch";
+import WaifuCard from "../components/waifuCard";
+import { MouseParallax } from "react-just-parallax";
 
 export function Slider() {
   //   const MyQuery = useQuery<AxiosResponse<Waifu[]>, AxiosError>({
@@ -37,6 +38,7 @@ export function Slider() {
   function handlePrevious() {
     previous();
   }
+
   return (
     <div className="w-full h-full relative overflow-hidden flex items-center">
       {/* navigation buttons */}
@@ -60,15 +62,18 @@ export function Slider() {
       </div>
       {/* information container */}
       {waifuData && <WaifuInfo waifu={waifuData[currentIndex]} />}
+
       {/* slides container */}
       <div className="w-full h-full overflow-hidden absolute top-0 left-0">
-        <div
-          className="w-auto h-full absolute left-0 flex transition-all duration-300"
-          style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
-        >
-          {waifuData &&
-            waifuData.map((waifu) => <WaifuCard key={waifu.id} {...waifu} />)}
-        </div>
+        <MouseParallax lerpEase={0.1} strength={0.02} shouldResetPosition>
+          <div
+            className="w-auto h-full absolute left-0 flex transition-all duration-300"
+            style={{ transform: `translateX(-${currentIndex * 100}vw)` }}
+          >
+            {waifuData &&
+              waifuData.map((waifu, idx) => <WaifuCard key={idx} {...waifu} />)}
+          </div>
+        </MouseParallax>
       </div>
 
       {/* pagination buttons */}

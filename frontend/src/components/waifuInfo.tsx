@@ -9,7 +9,8 @@ import {
 } from "lucide-react";
 import Waifu from "../api/waifus/model";
 import { animated, useSprings } from "@react-spring/web";
-import { useEffect } from "react";
+import { MouseEvent, useEffect } from "react";
+import { MouseParallax } from "react-just-parallax";
 
 interface WaifuInfoProps {
   waifu: Waifu;
@@ -48,7 +49,6 @@ export default function WaifuInfo({ waifu }: WaifuInfoProps) {
     9,
     animationConfig().map((config) => ({ ...config }))
   );
-  console.log("springProps", springProps);
   useEffect(() => {
     springProps.map(
       (spring, index) => {
