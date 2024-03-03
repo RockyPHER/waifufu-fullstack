@@ -3,7 +3,7 @@ import { CSSProperties, useState } from "react";
 export default function MenuButton() {
   const width = 34;
   const height = 6;
-  const color = "black";
+  const color = "white";
   const [positionX, setPositionX] = useState(0);
   const [positionY, setPositionY] = useState(10);
   const [degrees, setDegrees] = useState(0);

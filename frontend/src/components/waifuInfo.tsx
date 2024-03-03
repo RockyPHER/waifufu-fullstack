@@ -9,8 +9,7 @@ import {
 } from "lucide-react";
 import Waifu from "../api/waifus/model";
 import { animated, useSprings } from "@react-spring/web";
-import { MouseEvent, useEffect } from "react";
-import { MouseParallax } from "react-just-parallax";
+import { useEffect } from "react";
 
 interface WaifuInfoProps {
   waifu: Waifu;
