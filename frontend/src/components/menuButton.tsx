@@ -15,19 +15,17 @@ export default function MenuButton({
   alpha,
   size,
 }: MenuButtonProps) {
-  const aspectRatio = [5, 1];
-  const reduOpacity = alpha - 0.6;
+  const aspectRatio = [6, 1];
+  const alphaSleep = alpha - 0.6;
   const [width, height] = sizeConvert(size, aspectRatio);
   const color = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-  const [opacity, setOpacity] = useState([
-    reduOpacity,
-    reduOpacity,
-    reduOpacity,
-  ]);
-  const gap = height * 2;
+  const [opacity, setOpacity] = useState([alphaSleep, alphaSleep, alphaSleep]);
+  const gap = height * 2.2;
   const [positionX, setPositionX] = useState([0, 0, 0]);
   const [positionY, setPositionY] = useState([0, gap, 2 * gap]);
   const [degrees, setDegrees] = useState([0, 0, 0]);
+  const [isActive, setIsActive] = useState(false);
+
   const buttonSize = () => {
     let size = Math.floor(aspectRatio[0] * height).toString();
     return size + "px";
@@ -40,38 +38,61 @@ export default function MenuButton({
 
   const buttonRef = useRef(null);
 
+  function handleClick() {
+    console.log("button clicked");
+    console.log("isActive: " + isActive);
+    setIsActive((prevIsActive) => {
+      // Toggle the value
+      const newIsActive = !prevIsActive;
+
+      // Call activate or deactivate based on the updated state
+      newIsActive ? activate() : deactivate();
+
+      // Return the new state value
+      return newIsActive;
+    });
+  }
   function activate() {
     setPositionX([0, -60, 0]);
     setPositionY([gap, gap, gap]);
     setOpacity([alpha, 0, alpha]);
     setDegrees([45, 0, -45]);
-    return;
+    console.log("activated: isActive = " + isActive);
   }
+
   function deactivate() {
     setPositionX([0, 0, 0]);
     setPositionY([0, gap, 2 * gap]);
-    setOpacity([reduOpacity, reduOpacity, reduOpacity]);
+    setOpacity([alphaSleep, alphaSleep, alphaSleep]);
     setDegrees([0, 0, 0]);
-    return;
+    console.log("deactivated: isActive = " + isActive);
   }
   function handleHover() {
-    if (positionX[1] != 0) return;
+    if (isActive == true) return;
     setOpacity([alpha, alpha, alpha]);
   }
   function handleUnhover() {
-    if (document.activeElement == buttonRef.current) return;
-    setOpacity([reduOpacity, reduOpacity, reduOpacity]);
+    if (isActive == true) return;
+    setOpacity([alphaSleep, alphaSleep, alphaSleep]);
   }
+  function handleFocus() {
+    activate();
+  }
+  function handleBlur() {
+    setIsActive(false);
+    deactivate();
+  }
+
   return (
     <>
       <button
         ref={buttonRef}
         className="mx-5 flex justify-center items-center"
-        onClick={handleActivate}
+        onClick={handleClick}
         onMouseEnter={handleHover}
         onMouseLeave={handleUnhover}
-        onFocus={handleActivate}
-        onBlur={handleDeactivate}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       >
         <div
           style={{

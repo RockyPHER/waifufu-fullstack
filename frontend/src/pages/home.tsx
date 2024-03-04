@@ -1,4 +1,4 @@
-import { ChevronDown, Moon, Plus, Sun, X } from "lucide-react";
+import { ChevronDown, Moon, Sun } from "lucide-react";
 import MenuButton from "../components/menuButton";
 import { useState } from "react";
 
@@ -13,11 +13,11 @@ export default function Home() {
   ];
 
   const buttonConfigs = {
-    red: 0,
-    green: 0,
-    blue: 0,
+    red: 255,
+    green: 255,
+    blue: 255,
     alpha: 1,
-    size: 10,
+    size: 6,
   };
   const [darkMode, setDarkMode] = useState(false);
 
