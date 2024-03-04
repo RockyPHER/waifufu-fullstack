@@ -1,13 +1,15 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useRef, useState } from "react";
 
 export default function MenuButton() {
   const width = 34;
-  const height = 6;
-  const color = "white";
+  const height = 4;
+  const [colorOpacity, setColorOpacity] = useState(0.7);
+  const color = `rgba(255, 255, 255, ${colorOpacity})`;
   const [positionX, setPositionX] = useState(0);
   const [positionY, setPositionY] = useState(10);
   const [degrees, setDegrees] = useState(0);
   const [opacity, setOpacity] = useState(1);
+  const buttonRef = useRef(null);
 
   const barStyle: CSSProperties | undefined = {
     top: "43%",
@@ -17,7 +19,6 @@ export default function MenuButton() {
     width: `${width}px`,
     height: `${height}px`,
     backgroundColor: color,
-    borderRadius: "9999px",
     transition: "all 0.3s ease",
   };
 
@@ -46,11 +47,23 @@ export default function MenuButton() {
     degrees == 0 ? rotateAndTranslate(45, 0) : rotateAndTranslate(0, 10);
   }
 
+  function handleFocus() {
+    setColorOpacity(1);
+  }
+  function handleBlur() {
+    if (document.activeElement == buttonRef.current) return;
+    setColorOpacity(0.7);
+  }
   return (
     <>
       <button
+        ref={buttonRef}
         className="mx-5 flex justify-center items-center"
         onClick={handleClick}
+        onMouseEnter={handleFocus}
+        onMouseLeave={handleBlur}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       >
         <div className="w-12 h-12 relative">
           <div style={barOneStyle} />

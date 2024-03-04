@@ -1,4 +1,4 @@
-import { ChevronDown, Moon, Plus, PlusCircle, Sun, X } from "lucide-react";
+import { ChevronDown, Moon, Plus, Sun, X } from "lucide-react";
 import MenuButton from "../components/menuButton";
 import { useState } from "react";
 
