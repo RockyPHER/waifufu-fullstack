@@ -1,76 +1,105 @@
 import { CSSProperties, useRef, useState } from "react";
 
-export default function MenuButton() {
-  const width = 34;
-  const height = 4;
-  const [colorOpacity, setColorOpacity] = useState(0.7);
-  const color = `rgba(255, 255, 255, ${colorOpacity})`;
-  const [positionX, setPositionX] = useState(0);
-  const [positionY, setPositionY] = useState(10);
-  const [degrees, setDegrees] = useState(0);
-  const [opacity, setOpacity] = useState(1);
-  const buttonRef = useRef(null);
+interface MenuButtonProps {
+  red: number;
+  green: number;
+  blue: number;
+  alpha: number;
+  size: number;
+}
 
-  const barStyle: CSSProperties | undefined = {
-    top: "43%",
-    left: "14%",
-    transform: "translateY(-50%)",
-    position: "absolute",
+export default function MenuButton({
+  red,
+  green,
+  blue,
+  alpha,
+  size,
+}: MenuButtonProps) {
+  const aspectRatio = [5, 1];
+  const reduOpacity = alpha - 0.6;
+  const [width, height] = sizeConvert(size, aspectRatio);
+  const color = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+  const [opacity, setOpacity] = useState([
+    reduOpacity,
+    reduOpacity,
+    reduOpacity,
+  ]);
+  const gap = height * 2;
+  const [positionX, setPositionX] = useState([0, 0, 0]);
+  const [positionY, setPositionY] = useState([0, gap, 2 * gap]);
+  const [degrees, setDegrees] = useState([0, 0, 0]);
+  const buttonSize = () => {
+    let size = Math.floor(aspectRatio[0] * height).toString();
+    return size + "px";
+  };
+  const barStyle: CSSProperties = {
     width: `${width}px`,
     height: `${height}px`,
     backgroundColor: color,
-    transition: "all 0.3s ease",
   };
 
-  const barOneStyle = {
-    ...barStyle,
-    transform: `rotate(${degrees}deg) translateY(${positionY}px)`,
-  };
-  const barTwoStyle = {
-    ...barStyle,
-    opacity: opacity,
-    transform: `translateX(-${positionX}px)`,
-  };
-  const barThreeStyle = {
-    ...barStyle,
-    transform: `rotate(${-degrees}deg) translateY(${-positionY}px)`,
-  };
+  const buttonRef = useRef(null);
 
-  const rotateAndTranslate = (deg: number, Y: number) => {
-    setDegrees(deg);
-    setPositionY(Y);
-  };
-
-  function handleClick() {
-    positionX == 0 ? setPositionX(60) : setPositionX(0);
-    opacity == 1 ? setOpacity(0) : setOpacity(1);
-    degrees == 0 ? rotateAndTranslate(45, 0) : rotateAndTranslate(0, 10);
+  function activate() {
+    setPositionX([0, -60, 0]);
+    setPositionY([gap, gap, gap]);
+    setOpacity([alpha, 0, alpha]);
+    setDegrees([45, 0, -45]);
+    return;
   }
-
-  function handleFocus() {
-    setColorOpacity(1);
+  function deactivate() {
+    setPositionX([0, 0, 0]);
+    setPositionY([0, gap, 2 * gap]);
+    setOpacity([reduOpacity, reduOpacity, reduOpacity]);
+    setDegrees([0, 0, 0]);
+    return;
   }
-  function handleBlur() {
+  function handleHover() {
+    if (positionX[1] != 0) return;
+    setOpacity([alpha, alpha, alpha]);
+  }
+  function handleUnhover() {
     if (document.activeElement == buttonRef.current) return;
-    setColorOpacity(0.7);
+    setOpacity([reduOpacity, reduOpacity, reduOpacity]);
   }
   return (
     <>
       <button
         ref={buttonRef}
         className="mx-5 flex justify-center items-center"
-        onClick={handleClick}
-        onMouseEnter={handleFocus}
-        onMouseLeave={handleBlur}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onClick={handleActivate}
+        onMouseEnter={handleHover}
+        onMouseLeave={handleUnhover}
+        onFocus={handleActivate}
+        onBlur={handleDeactivate}
       >
-        <div className="w-12 h-12 relative">
-          <div style={barOneStyle} />
-          <div style={barTwoStyle} />
-          <div style={barThreeStyle} />
+        <div
+          style={{
+            position: "relative",
+            width: buttonSize(),
+            height: buttonSize(),
+          }}
+        >
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div
+              style={{
+                ...barStyle,
+                position: "absolute",
+                opacity: opacity[index],
+                transform: `translateY(${positionY[index]}px) translateX(${positionX[index]}px) rotate(${degrees[index]}deg)`,
+                transition: "all 0.3s ease-in-out",
+              }}
+              key={index}
+            />
+          ))}
         </div>
       </button>
     </>
   );
+}
+
+function sizeConvert(size: number, aspectRatio: number[]) {
+  const width = size * aspectRatio[0];
+  const height = size * aspectRatio[1];
+  return [width, height];
 }

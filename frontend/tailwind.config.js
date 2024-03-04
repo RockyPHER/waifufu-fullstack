@@ -1,15 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       keyframes: {
         wiggle: {
           "0%, 100%": { transform: "rotate(-3deg)" },
           "50%": { transform: "rotate(3deg)" },
+        },
+        bounce: {
+          "0%, 100%": {
+            transform: "translateY(0)",
+            "animation-timing-function": "cubic-bezier(0,0,0.2,1)",
+          },
+          "50%": {
+            transform: "translateY(-10%)",
+            "animation-timing-function": "cubic-bezier(0.8,0,1,1)",
+          },
         },
         "bounce-left": {
           "0%, 100%": {
@@ -44,8 +51,12 @@ export default {
           "100%": { transform: "translateX(0)" },
         },
         "onload-up": {
-          "0%": { transform: "translateY(100%)" },
-          "100%": { transform: "translateY(0)" },
+          "0%": { opacity: 0, transform: "translateY(100%)" },
+          "50%": {
+            opacity: 0.8,
+            transform: "translateY(-10%)",
+          },
+          "100%": { transform: "translateY(0)", opacity: 1 },
         },
         "onload-down": {
           "0%": { transform: "translateY(-100%)" },
@@ -54,6 +65,7 @@ export default {
       },
       animation: {
         wiggle: "wiggle 1s ease-in-out infinite",
+        bounce: "bounce 0.8s ease-in-out infinite",
         "bounce-left": "bounce-left 1s ease-in-out infinite",
         "onload-left-1": "onload-left 0.2s ease-in-out",
         "onload-left-2": "onload-left 0.4s ease-in-out",
@@ -72,7 +84,7 @@ export default {
         "onload-right-6": "onload-right 1.2s ease-in-out",
         "onload-right-7": "onload-right 1.4s ease-in-out",
         "onload-right-8": "onload-right 1.6s ease-in-out",
-        "onload-up": "onload-up 1s ease-in-out",
+        "onload-up": "onload-up 0.8s ease-in-out",
         "onload-down": "onload-down 1s ease-in-out",
       },
       backgroundImage: {
@@ -83,5 +95,4 @@ export default {
     },
   },
   plugins: [],
-}
-
+};

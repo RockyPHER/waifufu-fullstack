@@ -12,6 +12,13 @@ export default function Home() {
     "https://images3.alphacoders.com/133/1339873.png",
   ];
 
+  const buttonConfigs = {
+    red: 0,
+    green: 0,
+    blue: 0,
+    alpha: 1,
+    size: 10,
+  };
   const [darkMode, setDarkMode] = useState(false);
 
   function handleClick() {
@@ -22,24 +29,21 @@ export default function Home() {
       <section
         className="w-full h-full absolute flex justify-start pt-20 items-start bg-cover"
         style={{
-          backgroundImage: `url(${backgrounds[Math.floor(Math.random() * 6)]})`,
+          backgroundImage: `url(${backgrounds[4]})`,
         }}
       >
-        <h1 className="text-8xl font-bold capitalize">waifufu</h1>
-        <div className="flex justify-evenly items-center gap-4">
-          <button className="w-auto h-auto rounded-full border-2">
-            <Plus size={80} className="text-white" />
-          </button>
-          <button className="w-auto h-auto rounded-full border-2">
-            <X size={80} className="text-white" />
-          </button>
-        </div>
-        <button>
-          <ChevronDown size={128} className="text-white" />
+        <button className="w-full h-auto absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center group">
+          <ChevronDown
+            size={128}
+            className="group-hover:animate-bounce transition-all text-white"
+          />
         </button>
       </section>
-      <nav className="w-full h-20 absolute top-0 flex justify-start items-center bg-transparent border-b-2 border-white border-opacity-10 shadow-lg backdrop-blur-sm">
-        <MenuButton />
+      <nav className="w-full h-20 absolute top-0 flex justify-evenly items-center bg-transparent border-b-2 border-white border-opacity-10 shadow-lg backdrop-blur-sm">
+        <MenuButton {...buttonConfigs} />
+        <h1 className="select-none text-5xl font-bold capitalize animate-onload-up">
+          waifufu
+        </h1>
         <button
           className="w-[64px] h-[32px] relative bg-white bg-opacity-20 rounded-full"
           onClick={() => handleClick()}
