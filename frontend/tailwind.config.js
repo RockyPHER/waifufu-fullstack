@@ -51,15 +51,11 @@ export default {
           "100%": { transform: "translateX(0)" },
         },
         "onload-up": {
-          "0%": { opacity: 0, transform: "translateY(100%)" },
-          "50%": {
-            opacity: 0.8,
-            transform: "translateY(-10%)",
-          },
+          "0%": { opacity: 0, transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)", opacity: 1 },
         },
         "onload-down": {
-          "0%": { transform: "translateY(-100%)" },
+          "0%": { transform: "translateY(100%)" },
           "100%": { transform: "translateY(0)" },
         },
         opload: {
@@ -71,6 +67,7 @@ export default {
         wiggle: "wiggle 1s ease-in-out infinite",
         bounce: "bounce 0.8s ease-in-out infinite",
         "bounce-left": "bounce-left 1s ease-in-out infinite",
+        "bounce-right": "bounce-right 1s ease-in-out infinite",
         "onload-left-1": "onload-left 0.2s ease-in-out",
         "onload-left-2": "onload-left 0.4s ease-in-out",
         "onload-left-3": "onload-left 0.6s ease-in-out",
@@ -88,8 +85,8 @@ export default {
         "onload-right-6": "onload-right 1.2s ease-in-out",
         "onload-right-7": "onload-right 1.4s ease-in-out",
         "onload-right-8": "onload-right 1.6s ease-in-out",
-        "onload-up": "onload-up 0.8s ease-in-out",
-        "onload-down": "onload-down 0.7s ease-in-out",
+        "onload-up": "onload-up 0.5s ease-in-out",
+        "onload-down": "onload-down 0.5s ease-in-out",
         opload: "opload 0.5s ease-in-out",
       },
       backgroundImage: {

@@ -6,32 +6,28 @@ export default function App() {
   const [openHome, setOpenHome] = useState(true);
   const [openSlider, setOpenSlider] = useState(false);
 
-  const [transition, setTransition] = useState(false);
-
-  function transitionHandle() {
-    if (transition) {
-      return "translateY(-100%)";
-    } else {
-      return "translateY(0)";
-    }
-  }
+  const [onChange, setOnChange] = useState([true, false]);
 
   useEffect(() => {
-    if (transition) {
+    if (onChange[0] === true) {
       setTimeout(() => {
-        setOpenSlider(true);
+        setOpenSlider(false);
+      }, 450);
+      setOpenHome(true);
+    } else if (onChange[1] === true) {
+      setTimeout(() => {
         setOpenHome(false);
-      }, 300);
+      }, 450);
+      setOpenSlider(true);
     }
-  }, [transition]);
+  }, [onChange]);
 
   return (
     <main className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
-      {openHome ? <Home setTransition={setTransition} /> : null}
-      {transition ? (
-        <div className="w-full h-full absolute top-0 left-0 bg-black animate-opload backdrop-blur transition-all" />
+      {openHome ? <Home onChange={onChange} setOnChange={setOnChange} /> : null}
+      {openSlider ? (
+        <Slider onChange={onChange} setOnChange={setOnChange} />
       ) : null}
-      {openSlider ? <Slider /> : null}
     </main>
   );
 }

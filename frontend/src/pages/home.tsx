@@ -1,14 +1,23 @@
 import { ChevronDown, Moon, Sun } from "lucide-react";
 import MenuButton from "../components/menuButton";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { MouseParallax } from "react-just-parallax";
+
+import image1 from "../public/images/1.png";
+import image2 from "../public/images/2.jpg";
+import image3 from "../public/images/3.jpeg";
+import image4 from "../public/images/4.jpeg";
+import image5 from "../public/images/5.jpeg";
+import image6 from "../public/images/6.jpeg";
 
 interface HomeProps {
-  setTransition: React.Dispatch<React.SetStateAction<boolean>>;
+  onChange: boolean[];
+  setOnChange: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
-export default function Home({ setTransition }: HomeProps) {
+export default function Home({ onChange, setOnChange }: HomeProps) {
   const colorTheme = {
     darkMain: "rgba(0, 0, 0, 1)",
-    darkMid: "rgba(0, 0, 0, 0.5)",
+    darkMid: "rgba(100, 100, 100, 0.5)",
     darkBack: "rgba(0, 0, 0, 0.1)",
     lightMain: "rgba(255, 255, 255, 1)",
     lightMid: "rgba(255, 255, 255, 0.3)",
@@ -18,6 +27,7 @@ export default function Home({ setTransition }: HomeProps) {
   const [mainColor, setMainColor] = useState(colorTheme.lightMain);
   const [midColor, setMidColor] = useState(colorTheme.lightMid);
   const [backColor, setBackColor] = useState(colorTheme.lightBack);
+  const firstLoad = useRef(true);
 
   const handleThemeChange = (bool: boolean) => {
     if (bool === true) {
@@ -31,14 +41,10 @@ export default function Home({ setTransition }: HomeProps) {
     }
   };
 
-  const backgrounds = [
-    "https://images2.alphacoders.com/133/1330236.png",
-    "https://images5.alphacoders.com/133/1338079.png",
-    "https://images7.alphacoders.com/133/1333741.png",
-    "https://images.alphacoders.com/133/1339164.png",
-    "https://images5.alphacoders.com/134/1344988.jpeg",
-    "https://images3.alphacoders.com/133/1339873.png",
-  ];
+  const backgrounds = [image1, image2, image3, image4, image5, image6];
+  const [backgroundIndex, setBackgroundIndex] = useState(
+    Math.floor(Math.random() * backgrounds.length)
+  );
 
   const buttonThemes = {
     dark: {
@@ -65,26 +71,79 @@ export default function Home({ setTransition }: HomeProps) {
     });
   }
 
-  function handleStart() {
-    setTransition(true);
+  function handleOpenSlider() {
+    onChangeHandler();
+    setOnChange([false, true]);
   }
+  function onChangeHandler() {
+    if (firstLoad.current === false) {
+      firstLoad.current = true;
+      return styleOnLoad;
+    } else {
+      if (onChange[0] === true) {
+        return styleOnChange;
+      } else if (onChange[1] === true) {
+        return styleOnLoad;
+      }
+    }
+  }
+  useEffect(() => {
+    onChangeHandler();
+  }, [onChange]);
+
+  const styleOnChange = {
+    zIndex: 2,
+    animation: "slideIn 0.5s ease-in-out",
+  };
+  const styleOnLoad = {
+    zIndex: 0,
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBackgroundIndex((prevIndex) => {
+        const newIndex = Math.floor(Math.random() * backgrounds.length);
+        return newIndex !== prevIndex
+          ? newIndex
+          : (newIndex + 1) % backgrounds.length;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="w-screen h-screen overflow-hidden relative">
+    <div
+      className="w-screen h-screen overflow-hidden absolute"
+      style={onChangeHandler()}
+    >
+      <MouseParallax
+        lerpEase={0.1}
+        strength={0.02}
+        isAbsolutelyPositioned
+        shouldResetPosition
+      >
+        <div
+          className="w-screen h-screen absolute top-0 left-0 bg-cover"
+          style={{
+            backgroundImage: `url(${backgrounds[backgroundIndex]})`,
+            transition: "background 1s ease-in-out",
+          }}
+        ></div>
+      </MouseParallax>
       <section
         className="w-full h-full absolute flex justify-start pt-20 items-start bg-cover"
         style={{
-          backgroundImage: `url(${backgrounds[4]})`,
           transition: "all 0.3s ease-in-out",
         }}
       >
         <button
-          onClick={handleStart}
+          onClick={handleOpenSlider}
           className="w-full h-auto absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center group"
         >
           <ChevronDown
             size={128}
-            className={`group-hover:animate-bounce transition-all`}
+            className={`group-hover:animate-bounce group-active:scale-90 group-active:animate-none transition-all`}
             style={{
               color: `${mainColor}`,
               transition: "all 0.3s ease-in-out",
@@ -93,7 +152,7 @@ export default function Home({ setTransition }: HomeProps) {
         </button>
       </section>
       <nav
-        className={`w-full h-20 absolute top-0 flex justify-evenly items-center animate-onload-down border-b-2 shadow-lg backdrop-blur-sm`}
+        className={`w-full h-20 absolute top-0 flex justify-evenly items-center animate-onload-up border-b-2 shadow-lg backdrop-blur-sm`}
         style={{
           borderColor: `${backColor}`,
           backgroundColor: `${backColor}`,

@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": "/src",
+      "@/images/**/*": "./public/images/**/*",
     },
   },
   plugins: [react(), svgr()],
