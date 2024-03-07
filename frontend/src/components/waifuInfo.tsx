@@ -68,8 +68,12 @@ export default function WaifuInfo({ waifu }: WaifuInfoProps) {
   return (
     <div className="w-1/2 h-auto absolute top-1/2 translate-y-[-20%] z-20 left-0 select-none bg-opacity-30">
       <animated.div
-        style={springProps[0]}
-        className="w-full h-full absolute top-0 left-0 -z-10 bg-gradient-to-r from-black to-transparent"
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))",
+          ...springProps[0],
+        }}
+        className="w-full h-full absolute top-0 left-0 -z-10"
       ></animated.div>
       <span className={`flex flex-col gap-1 px-10 py-4`}>
         <animated.h1

@@ -11,7 +11,10 @@ import { getWaifus } from "../api/waifus/fetch";
 import WaifuCard from "../components/waifuCard";
 import { MouseParallax } from "react-just-parallax";
 
-export function Slider() {
+interface SliderProps {
+  handleHome: () => void;
+}
+export function Slider({ handleHome }: SliderProps) {
   //   const MyQuery = useQuery<AxiosResponse<Waifu[]>, AxiosError>({
   //     queryKey: ["waifus"],
   //     queryFn: getWaifus,
@@ -41,6 +44,15 @@ export function Slider() {
 
   return (
     <div className="w-full h-full relative overflow-hidden flex items-center">
+      <div className="w-[80px] h-full absolute right-0 z-30 group">
+        <button
+          onClick={handleHome}
+          className="w-auto h-full absolute z-30 py-2 top-0 right-0 translate-x-24 group-hover:translate-x-0 transition-all flex justify-start items-center"
+        >
+          <div className="w-full h-full absolute z-30 bg-gradient-to-l from-black to-transparent opacity-0 group-hover:opacity-80" />
+          <ChevronRight className="w-16 h-16 text-white z-40 group-hover:animate-bounce-right" />
+        </button>
+      </div>
       {/* navigation buttons */}
       <div className="w-[80px] h-full absolute right-0 z-30 group">
         <button

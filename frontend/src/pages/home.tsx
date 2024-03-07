@@ -2,7 +2,10 @@ import { ChevronDown, Moon, Sun } from "lucide-react";
 import MenuButton from "../components/menuButton";
 import { useState } from "react";
 
-export default function Home() {
+interface HomeProps {
+  setTransition: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export default function Home({ setTransition }: HomeProps) {
   const colorTheme = {
     darkMain: "rgba(0, 0, 0, 1)",
     darkMid: "rgba(0, 0, 0, 0.5)",
@@ -61,9 +64,13 @@ export default function Home() {
       return !prev;
     });
   }
-  function handleStart() {}
+
+  function handleStart() {
+    setTransition(true);
+  }
+
   return (
-    <div className="w-full h-full relative">
+    <div className="w-screen h-screen overflow-hidden relative">
       <section
         className="w-full h-full absolute flex justify-start pt-20 items-start bg-cover"
         style={{
@@ -86,7 +93,7 @@ export default function Home() {
         </button>
       </section>
       <nav
-        className={`w-full h-20 absolute top-0 flex justify-evenly items-center border-b-2 shadow-lg backdrop-blur-sm`}
+        className={`w-full h-20 absolute top-0 flex justify-evenly items-center animate-onload-down border-b-2 shadow-lg backdrop-blur-sm`}
         style={{
           borderColor: `${backColor}`,
           backgroundColor: `${backColor}`,
@@ -95,7 +102,7 @@ export default function Home() {
       >
         <MenuButton {...buttonConfigs} />
         <h1
-          className="select-none text-5xl font-bold capitalize animate-onload-up"
+          className="select-none text-5xl font-bold capitalize"
           style={{
             color: `${mainColor}`,
             transition: "all 0.3s ease-in-out",
@@ -105,7 +112,9 @@ export default function Home() {
         </h1>
         <button
           className={`w-[64px] h-[32px] relative rounded-full`}
-          style={{ backgroundColor: `${midColor}` }}
+          style={{
+            backgroundColor: `${midColor}`,
+          }}
           onClick={() => handleTheme()}
         >
           <div
@@ -116,7 +125,7 @@ export default function Home() {
                 darkMode ? colorTheme.lightBack : colorTheme.darkBack
               }`,
               borderColor: `${
-                darkMode ? colorTheme.darkMain : colorTheme.lightMid
+                darkMode ? colorTheme.lightMid : colorTheme.lightMid
               }`,
               transition: "all 0.3s ease-in-out",
             }}
@@ -125,8 +134,12 @@ export default function Home() {
               <Moon
                 size={32}
                 style={{
-                  stroke: `${midColor}`,
-                  fill: `${mainColor}`,
+                  stroke: `${
+                    darkMode ? colorTheme.lightBack : colorTheme.darkBack
+                  }`,
+                  fill: `${
+                    darkMode ? colorTheme.lightMid : colorTheme.darkBack
+                  }`,
                   transition: "all 0.3s ease-in-out",
                 }}
               />

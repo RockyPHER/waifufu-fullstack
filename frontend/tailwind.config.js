@@ -62,6 +62,10 @@ export default {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        opload: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
       },
       animation: {
         wiggle: "wiggle 1s ease-in-out infinite",
@@ -85,7 +89,8 @@ export default {
         "onload-right-7": "onload-right 1.4s ease-in-out",
         "onload-right-8": "onload-right 1.6s ease-in-out",
         "onload-up": "onload-up 0.8s ease-in-out",
-        "onload-down": "onload-down 1s ease-in-out",
+        "onload-down": "onload-down 0.7s ease-in-out",
+        opload: "opload 0.5s ease-in-out",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
