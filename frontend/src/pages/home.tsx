@@ -16,22 +16,38 @@ interface HomeProps {
 }
 export default function Home({ onChange, setOnChange }: HomeProps) {
   const colors = {
-    darkMain: "rgba(0, 0, 0, 1)",
-    darkMid: "rgba(100, 100, 100, 0.5)",
-    darkBack: "rgba(0, 0, 0, 0.1)",
-    lightMain: "rgba(255, 255, 255, 1)",
-    lightMid: "rgba(255, 255, 255, 0.3)",
-    lightBack: "rgba(255, 255, 255, 0.1)",
+    dark_0: "rgba(5, 7, 15, 1)",
+    dark_1: "rgba(25, 25, 30 0.3)",
+    dark_2: "rgba(20, 20, 20, 0.2)",
+    dark_3: "rgba(40, 40, 40, 0.5)",
+    light_0: "rgba(246, 246, 246, 1)",
+    light_1: "rgba(255, 230, 230, 0.1)",
+    light_2: "rgba(255, 255, 255, 0.6)",
+    light_3: "rgba(100, 100, 100, 0.4)",
   };
   const colorSchemes = {
-    dark: [colors.lightMain, colors.darkMid, colors.darkBack],
-    light: [colors.darkMain, colors.lightMid, colors.lightBack],
+    dark: [
+      colors.light_0,
+      colors.dark_1,
+      colors.dark_2,
+      colors.dark_3,
+      colors.light_3,
+      colors.light_2,
+    ],
+    light: [
+      colors.dark_0,
+      colors.light_2,
+      colors.light_1,
+      colors.light_3,
+      colors.dark_2,
+      colors.dark_3,
+    ],
   };
   const optionIcon = [<SquareUser />, <List />];
 
   const optionName = ["My portfolio", "Waifulist"];
-  const [darkMode, setDarkMode] = useState(false);
-  const [colorScheme, setColorScheme] = useState(colorSchemes.light);
+  const [darkMode, setDarkMode] = useState(true);
+  const [colorScheme, setColorScheme] = useState(colorSchemes.dark);
   const firstLoad = useRef(true);
 
   const handleThemeChange = (bool: boolean) => {
@@ -47,23 +63,16 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
     Math.floor(Math.random() * backgrounds.length)
   );
 
-  const dropDownTheme = () => {
-    if (darkMode) {
-      return "rgba(0, 0, 0, 0.5)";
-    } else {
-      return "rgba(255, 255, 255, 0.5)";
-    }
-  };
   const buttonThemes = {
     dark: {
-      red: 0,
-      green: 0,
-      blue: 0,
+      red: 5,
+      green: 7,
+      blue: 15,
     },
     light: {
-      red: 255,
-      green: 255,
-      blue: 255,
+      red: 246,
+      green: 246,
+      blue: 246,
     },
   };
   const buttonConfigs = {
@@ -122,6 +131,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
       className="w-screen h-screen overflow-hidden absolute"
       style={onChangeHandler()}
     >
+      {/* background */}
       <MouseParallax
         lerpEase={0.1}
         strength={0.02}
@@ -136,6 +146,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
           }}
         ></div>
       </MouseParallax>
+      {/* main container */}
       <section
         className="w-full h-full absolute flex justify-start pt-20 items-start bg-cover"
         style={{
@@ -156,10 +167,11 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
           />
         </button>
       </section>
+      {/* navbar */}
       <nav
         className={`w-full h-20 absolute top-0 flex justify-evenly items-center animate-onload-up border-b-2 shadow-lg backdrop-blur-sm`}
         style={{
-          borderColor: `${colorScheme[1]}`,
+          borderColor: `${colorScheme[5]}`,
           backgroundColor: `${colorScheme[2]}`,
           transition: "all 0.3s ease-in-out",
         }}
@@ -169,7 +181,9 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
             <button
               className="w-full h-auto py-2 px-2 flex justify-between items-center border-b text-xl hover:bg-"
               style={{
-                backgroundColor: `${dropDownTheme()}`,
+                backgroundColor: `${colorScheme[2]}`,
+                borderColor: `${colorScheme[5]}`,
+                color: `${colorScheme[0]}`,
               }}
             >
               {optionIcon[index]}
@@ -189,7 +203,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
         <button
           className={`w-[64px] h-[32px] relative rounded-full`}
           style={{
-            backgroundColor: `${colorScheme[1]}`,
+            backgroundColor: `${colorScheme[4]}`,
           }}
           onClick={() => handleTheme()}
         >
@@ -197,8 +211,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
             className={`absolute -top-[2px] right-0 flex items-center rounded-full border-2`}
             style={{
               transform: `translateX(${darkMode ? -32 : 0}px)`,
-              backgroundColor: `${colorScheme[2]}`,
-              borderColor: `${colorScheme[1]}`,
+              backgroundColor: `${colorScheme[3]}`,
+              borderColor: `${colorScheme[5]}`,
               transition: "all 0.3s ease-in-out",
             }}
           >
@@ -206,8 +220,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
               <Moon
                 size={32}
                 style={{
-                  stroke: `${colorScheme[0]}`,
-                  fill: `${colorScheme[0]}`,
+                  stroke: `${colorScheme[4]}`,
+                  fill: `${colorScheme[5]}`,
                   transition: "all 0.3s ease-in-out",
                 }}
               />
