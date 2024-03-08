@@ -1,4 +1,4 @@
-import { ChevronDown, Moon, Sun } from "lucide-react";
+import { ChevronDown, List, Moon, SquareUser, Sun } from "lucide-react";
 import MenuButton from "../components/menuButton";
 import { useEffect, useRef, useState } from "react";
 import { MouseParallax } from "react-just-parallax";
@@ -15,7 +15,7 @@ interface HomeProps {
   setOnChange: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
 export default function Home({ onChange, setOnChange }: HomeProps) {
-  const colorTheme = {
+  const colors = {
     darkMain: "rgba(0, 0, 0, 1)",
     darkMid: "rgba(100, 100, 100, 0.5)",
     darkBack: "rgba(0, 0, 0, 0.1)",
@@ -23,21 +23,22 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
     lightMid: "rgba(255, 255, 255, 0.3)",
     lightBack: "rgba(255, 255, 255, 0.1)",
   };
+  const colorSchemes = {
+    dark: [colors.lightMain, colors.darkMid, colors.darkBack],
+    light: [colors.darkMain, colors.lightMid, colors.lightBack],
+  };
+  const optionIcon = [<SquareUser />, <List />];
+
+  const optionName = ["My portfolio", "Waifulist"];
   const [darkMode, setDarkMode] = useState(false);
-  const [mainColor, setMainColor] = useState(colorTheme.lightMain);
-  const [midColor, setMidColor] = useState(colorTheme.lightMid);
-  const [backColor, setBackColor] = useState(colorTheme.lightBack);
+  const [colorScheme, setColorScheme] = useState(colorSchemes.light);
   const firstLoad = useRef(true);
 
   const handleThemeChange = (bool: boolean) => {
     if (bool === true) {
-      setMainColor(colorTheme.darkMain);
-      setMidColor(colorTheme.darkMid);
-      setBackColor(colorTheme.darkBack);
+      setColorScheme(colorSchemes.dark);
     } else {
-      setMainColor(colorTheme.lightMain);
-      setMidColor(colorTheme.lightMid);
-      setBackColor(colorTheme.lightBack);
+      setColorScheme(colorSchemes.light);
     }
   };
 
@@ -46,6 +47,13 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
     Math.floor(Math.random() * backgrounds.length)
   );
 
+  const dropDownTheme = () => {
+    if (darkMode) {
+      return "rgba(0, 0, 0, 0.5)";
+    } else {
+      return "rgba(255, 255, 255, 0.5)";
+    }
+  };
   const buttonThemes = {
     dark: {
       red: 0,
@@ -59,7 +67,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
     },
   };
   const buttonConfigs = {
-    ...buttonThemes[darkMode ? "dark" : "light"],
+    ...buttonThemes[darkMode ? "light" : "dark"],
     alpha: 1,
     size: 6,
   };
@@ -102,12 +110,9 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setBackgroundIndex((prevIndex) => {
-        const newIndex = Math.floor(Math.random() * backgrounds.length);
-        return newIndex !== prevIndex
-          ? newIndex
-          : (newIndex + 1) % backgrounds.length;
+        return (prevIndex + 1) % backgrounds.length;
       });
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
@@ -127,7 +132,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
           className="w-screen h-screen absolute top-0 left-0 bg-cover"
           style={{
             backgroundImage: `url(${backgrounds[backgroundIndex]})`,
-            transition: "background 1s ease-in-out",
+            transition: "background 0.5s ease-out",
           }}
         ></div>
       </MouseParallax>
@@ -145,7 +150,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
             size={128}
             className={`group-hover:animate-bounce group-active:scale-90 group-active:animate-none transition-all`}
             style={{
-              color: `${mainColor}`,
+              color: `${colorScheme[0]}`,
               transition: "all 0.3s ease-in-out",
             }}
           />
@@ -154,16 +159,28 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
       <nav
         className={`w-full h-20 absolute top-0 flex justify-evenly items-center animate-onload-up border-b-2 shadow-lg backdrop-blur-sm`}
         style={{
-          borderColor: `${backColor}`,
-          backgroundColor: `${backColor}`,
+          borderColor: `${colorScheme[1]}`,
+          backgroundColor: `${colorScheme[2]}`,
           transition: "all 0.3s ease-in-out",
         }}
       >
-        <MenuButton {...buttonConfigs} />
+        <MenuButton {...buttonConfigs}>
+          {Array.from({ length: optionIcon.length }, (_, index) => (
+            <button
+              className="w-full h-auto py-2 px-2 flex justify-between items-center border-b text-xl hover:bg-"
+              style={{
+                backgroundColor: `${dropDownTheme()}`,
+              }}
+            >
+              {optionIcon[index]}
+              <p className="">{optionName[index]}</p>
+            </button>
+          ))}
+        </MenuButton>
         <h1
           className="select-none text-5xl font-bold capitalize"
           style={{
-            color: `${mainColor}`,
+            color: `${colorScheme[0]}`,
             transition: "all 0.3s ease-in-out",
           }}
         >
@@ -172,7 +189,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
         <button
           className={`w-[64px] h-[32px] relative rounded-full`}
           style={{
-            backgroundColor: `${midColor}`,
+            backgroundColor: `${colorScheme[1]}`,
           }}
           onClick={() => handleTheme()}
         >
@@ -180,12 +197,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
             className={`absolute -top-[2px] right-0 flex items-center rounded-full border-2`}
             style={{
               transform: `translateX(${darkMode ? -32 : 0}px)`,
-              backgroundColor: `${
-                darkMode ? colorTheme.lightBack : colorTheme.darkBack
-              }`,
-              borderColor: `${
-                darkMode ? colorTheme.lightMid : colorTheme.lightMid
-              }`,
+              backgroundColor: `${colorScheme[2]}`,
+              borderColor: `${colorScheme[1]}`,
               transition: "all 0.3s ease-in-out",
             }}
           >
@@ -193,12 +206,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
               <Moon
                 size={32}
                 style={{
-                  stroke: `${
-                    darkMode ? colorTheme.lightBack : colorTheme.darkBack
-                  }`,
-                  fill: `${
-                    darkMode ? colorTheme.lightMid : colorTheme.darkBack
-                  }`,
+                  stroke: `${colorScheme[0]}`,
+                  fill: `${colorScheme[0]}`,
                   transition: "all 0.3s ease-in-out",
                 }}
               />
@@ -206,7 +215,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
               <Sun
                 size={32}
                 style={{
-                  stroke: `${mainColor}`,
+                  stroke: `${colorScheme[0]}`,
                   transition: "all 0.3s ease-in-out",
                 }}
               />

@@ -6,6 +6,7 @@ interface MenuButtonProps {
   blue: number;
   alpha: number;
   size: number;
+  children: React.ReactNode;
 }
 
 export default function MenuButton({
@@ -14,6 +15,7 @@ export default function MenuButton({
   blue,
   alpha,
   size,
+  children,
 }: MenuButtonProps) {
   const aspectRatio = [6, 1];
   const alphaSleep = alpha - 0.6;
@@ -84,7 +86,7 @@ export default function MenuButton({
   }
 
   return (
-    <>
+    <div className="w-auto h-auto relative">
       <button
         ref={buttonRef}
         className="mx-5 flex justify-center items-center"
@@ -105,6 +107,7 @@ export default function MenuButton({
             <div
               style={{
                 ...barStyle,
+                zIndex: 2,
                 position: "absolute",
                 opacity: opacity[index],
                 transform: `translateY(${positionY[index]}px) translateX(${positionX[index]}px) rotate(${degrees[index]}deg)`,
@@ -115,7 +118,10 @@ export default function MenuButton({
           ))}
         </div>
       </button>
-    </>
+      <div className="w-[300px] h-auto px-5 absolute top-[59px] left-0 flex flex-col">
+        {children}
+      </div>
+    </div>
   );
 }
 
