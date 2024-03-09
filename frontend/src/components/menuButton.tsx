@@ -1,4 +1,5 @@
-import { CSSProperties, useRef, useState } from "react";
+import { useSpring, animated } from "@react-spring/web";
+import { CSSProperties, FocusEvent, useEffect, useRef, useState } from "react";
 
 interface MenuButtonProps {
   red: number;
@@ -27,6 +28,38 @@ export default function MenuButton({
   const [positionY, setPositionY] = useState([0, gap, 2 * gap]);
   const [degrees, setDegrees] = useState([0, 0, 0]);
   const [isActive, setIsActive] = useState(false);
+  const [showChildren, setShowChildren] = useState(false);
+  const [props, api] = useSpring(
+    () => ({
+      from: {
+        opacity: 0,
+        y: -100,
+      },
+      to: {
+        opacity: 1,
+        y: 0,
+      },
+    }),
+    []
+  );
+
+  useEffect(() => {
+    if (isActive === true) {
+      setShowChildren(true);
+      api.start({
+        from: {
+          opacity: 0,
+          y: -50,
+        },
+        to: {
+          opacity: 1,
+          y: 0,
+        },
+      });
+    } else {
+      setShowChildren(false);
+    }
+  }, [isActive]);
 
   const buttonSize = () => {
     let size = Math.floor(aspectRatio[0] * height).toString();
@@ -41,8 +74,6 @@ export default function MenuButton({
   const buttonRef = useRef(null);
 
   function handleClick() {
-    console.log("button clicked");
-    console.log("isActive: " + isActive);
     setIsActive((prevIsActive) => {
       // Toggle the value
       const newIsActive = !prevIsActive;
@@ -55,7 +86,7 @@ export default function MenuButton({
     });
   }
   function activate() {
-    setPositionX([0, -60, 0]);
+    setPositionX([0, -50, 0]);
     setPositionY([gap, gap, gap]);
     setOpacity([alpha, 0, alpha]);
     setDegrees([45, 0, -45]);
@@ -80,13 +111,18 @@ export default function MenuButton({
   function handleFocus() {
     activate();
   }
-  function handleBlur() {
-    setIsActive(false);
-    deactivate();
+  function handleBlur(event: FocusEvent<HTMLDivElement, Element>) {
+    if (
+      !event.relatedTarget ||
+      !event.currentTarget.contains(event.relatedTarget as Node)
+    ) {
+      setIsActive(false);
+      deactivate();
+    }
   }
 
   return (
-    <div className="w-auto h-auto relative">
+    <div onBlur={(e) => handleBlur(e)} className="w-auto h-auto relative">
       <button
         ref={buttonRef}
         className="mx-5 flex justify-center items-center"
@@ -94,7 +130,6 @@ export default function MenuButton({
         onMouseEnter={handleHover}
         onMouseLeave={handleUnhover}
         onFocus={handleFocus}
-        onBlur={handleBlur}
       >
         <div
           style={{
@@ -118,9 +153,14 @@ export default function MenuButton({
           ))}
         </div>
       </button>
-      <div className="w-[300px] h-auto px-5 absolute top-[59px] left-0 flex flex-col">
-        {children}
-      </div>
+      {showChildren && (
+        <animated.div
+          className="w-[300px] h-auto px-5 absolute top-[59px] left-0 flex flex-col"
+          style={props}
+        >
+          {children}
+        </animated.div>
+      )}
     </div>
   );
 }

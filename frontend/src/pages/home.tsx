@@ -3,12 +3,11 @@ import MenuButton from "../components/menuButton";
 import { useEffect, useRef, useState } from "react";
 import { MouseParallax } from "react-just-parallax";
 
-import image1 from "../public/images/1.png";
+import image1 from "../public/images/1.jpeg";
 import image2 from "../public/images/2.jpg";
 import image3 from "../public/images/3.jpeg";
 import image4 from "../public/images/4.jpeg";
 import image5 from "../public/images/5.jpeg";
-import image6 from "../public/images/6.jpeg";
 
 interface HomeProps {
   onChange: boolean[];
@@ -49,6 +48,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
   const [darkMode, setDarkMode] = useState(true);
   const [colorScheme, setColorScheme] = useState(colorSchemes.dark);
   const firstLoad = useRef(true);
+  const [buttonBgColor, setButtonBgColor] = useState(colorScheme[2]);
 
   const handleThemeChange = (bool: boolean) => {
     if (bool === true) {
@@ -58,7 +58,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
     }
   };
 
-  const backgrounds = [image1, image2, image3, image4, image5, image6];
+  const backgrounds = [image1, image2, image3, image4, image5];
   const [backgroundIndex, setBackgroundIndex] = useState(
     Math.floor(Math.random() * backgrounds.length)
   );
@@ -179,9 +179,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
         <MenuButton {...buttonConfigs}>
           {Array.from({ length: optionIcon.length }, (_, index) => (
             <button
-              className="w-full h-auto py-2 px-2 flex justify-between items-center border-b text-xl hover:bg-"
+              className="dropdown w-full h-auto py-2 px-2 flex justify-between items-center border-b text-xl]"
               style={{
-                backgroundColor: `${colorScheme[2]}`,
                 borderColor: `${colorScheme[5]}`,
                 color: `${colorScheme[0]}`,
               }}
