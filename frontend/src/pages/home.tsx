@@ -8,6 +8,8 @@ import image2 from "../public/images/2.jpg";
 import image3 from "../public/images/3.jpeg";
 import image4 from "../public/images/4.jpeg";
 import image5 from "../public/images/5.jpeg";
+import Backdrop from "../components/backdrop";
+import WaifuList from "../components/waifuList";
 
 interface HomeProps {
   onChange: boolean[];
@@ -48,7 +50,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
   const [darkMode, setDarkMode] = useState(true);
   const [colorScheme, setColorScheme] = useState(colorSchemes.dark);
   const firstLoad = useRef(true);
-  const [buttonBgColor, setButtonBgColor] = useState(colorScheme[2]);
+
+  const [openBackdrop, setOpenBackdrop] = useState(false);
 
   const handleThemeChange = (bool: boolean) => {
     if (bool === true) {
@@ -126,11 +129,18 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
     return () => clearInterval(interval);
   }, []);
 
+  function openListHandle() {
+    setOpenBackdrop(true);
+  }
+
   return (
     <div
       className="w-screen h-screen overflow-hidden absolute"
       style={onChangeHandler()}
     >
+      <Backdrop isOpen={openBackdrop}>
+        <WaifuList close={setOpenBackdrop} />
+      </Backdrop>
       {/* background */}
       <MouseParallax
         lerpEase={0.1}
@@ -184,6 +194,11 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
                 borderColor: `${colorScheme[5]}`,
                 color: `${colorScheme[0]}`,
               }}
+              onClick={() =>
+                optionName[index] == "Waifulist"
+                  ? openListHandle()
+                  : (location.href = "/")
+              }
             >
               {optionIcon[index]}
               <p className="">{optionName[index]}</p>

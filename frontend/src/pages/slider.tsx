@@ -73,6 +73,7 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
       className="w-full h-full absolute overflow-hidden flex items-center "
       style={onChangeHandler()}
     >
+      <div className="radial-gradient" />
       {/* edit buttons */}
       <div className="w-auto h-[80px] absolute z-30 bottom-10 right-20 flex gap-2">
         <button className="w-16 h-16 flex justify-center items-center border-2 rounded-full bg-white bg-opacity-0 hover:scale-110 hover:bg-opacity-50 active:scale-100 active:bg-opacity-80 transition-all">

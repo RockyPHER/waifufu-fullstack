@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "Hatsune Miku",
+    "age": 16,
+    "height": "158",
+    "weight": "42",
+    "birthday": "August 31",
+    "origin": "Vocaloid",
+    "hairColor": "Teal",
+    "eyeColor": "Turquoise",
+    "backgroundUrl": "https://r4.wallpaperflare.com/wallpaper/997/47/663/anime-anime-girls-hatsune-miku-blue-hair-wallpaper-4b06ec1d63512f3945c49ba94d4c7cb0.jpg",
+    "heroUrl": "https://i.postimg.cc/wjzbsThW/miku.png"
+  },
+  {
+    "id": 2,
+    "name": "Kitagawa Marin",
+    "age": 15,
+    "height": "164",
+    "weight": "50",
+    "birthday": "March 5",
+    "backgroundUrl": "https://w.forfun.com/fetch/c2/c23ecac50fe951bf417a6351cbff798d.jpeg",
+    "heroUrl": "https://i.postimg.cc/25zFC14D/marin.png",
+    "origin": "Sono Bisque Doll",
+    "hairColor": "Blonde",
+    "eyeColor": "Dark Pink"
+  },
+  {
+    "id": 3,
+    "name": "Rei Ayanami",
+    "age": 14,
+    "height": "143",
+    "weight": "43",
+    "birthday": "March 30",
+    "backgroundUrl": "https://wallpapercave.com/wp/wp6405922.jpg",
+    "heroUrl": "https://i.postimg.cc/yW4ctxV2/rei.png",
+    "origin": "Neon Genesis Evangelion",
+    "hairColor": "Celeste",
+    "eyeColor": "Red"
+  },
+  {
+    "id": 4,
+    "name": "Violet Evergarden",
+    "age": 18,
+    "height": "161",
+    "weight": "60",
+    "birthday": "September 25",
+    "backgroundUrl": "https://r4.wallpaperflare.com/wallpaper/923/685/115/violet-evergarden-anime-girls-violet-evergarden-anime-water-wallpaper-2d93d221e673ed66ad660ded7e18b0ea.jpg",
+    "heroUrl": "https://i.postimg.cc/8kFY2Ypb/violet.png",
+    "origin": "Violet Evergarden",
+    "hairColor": "Blonde",
+    "eyeColor": "Blue"
+  },
+  {
+    "id": 5,
+    "name": "Zero Two",
+    "age": 0,
+    "height": "170",
+    "weight": "57",
+    "birthday": "unknown",
+    "backgroundUrl": "https://images4.alphacoders.com/908/908470.jpg",
+    "heroUrl": "https://i.postimg.cc/T2Zsfchv/zero.png",
+    "origin": "Darling in the FRANXX",
+    "hairColor": "Pink",
+    "eyeColor": "Emerald"
+  },
+  {
+    "id": 6,
+    "name": "Megumin",
+    "age": 14,
+    "height": "148",
+    "weight": "47",
+    "birthday": "December 4",
+    "backgroundUrl": "https://images6.alphacoders.com/996/996949.jpg",
+    "heroUrl": "https://i.postimg.cc/SsPWLVHS/megumin.png",
+    "origin": "KonoSuba",
+    "hairColor": "Black",
+    "eyeColor": "Red"
+  }
+]
