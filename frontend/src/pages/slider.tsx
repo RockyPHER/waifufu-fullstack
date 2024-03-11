@@ -13,7 +13,6 @@ import {
   Trash,
 } from "lucide-react";
 import WaifuInfo from "../components/waifuInfo";
-import { useQuery } from "@tanstack/react-query";
 import { getWaifus } from "../api/waifus/fetch";
 import WaifuCard from "../components/waifuCard";
 import { MouseParallax } from "react-just-parallax";
@@ -30,7 +29,7 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
   //   const waifusData = MyQuery.data?.data;
   // ******** COMMENTED FOR DEPLOYMENT ********
 
-  const { data } = useQuery({ queryKey: [Object], queryFn: getWaifus });
+  const data = getWaifus();
   const waifuData = data;
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalPages = waifuData?.length || 1;

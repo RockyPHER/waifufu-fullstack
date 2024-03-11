@@ -15,8 +15,22 @@ import Waifu from "./model";
 // export async function updateWaifu(data: UpdateWaifuData) {
 //   return await api.put<Waifu>("/waifus", data);
 // }
+var waifus: Waifu[];
+export function backupWaifus() {
+  waifus = JSON.parse(JSON.stringify(waifusData));
+  localStorage.setItem("waifus", JSON.stringify(waifus));
+  return waifus;
+}
 
 export function getWaifus() {
-  const waifus: Waifu[] = JSON.parse(JSON.stringify(waifusData));
+  waifus = localStorage.getItem("waifus")
+    ? JSON.parse(localStorage.getItem("waifus")!)
+    : JSON.parse(JSON.stringify(waifusData));
   return waifus;
+}
+
+export function updateWaifus(waifuList: Waifu[]) {
+  const newWaifus = waifuList;
+  localStorage.setItem("waifus", JSON.stringify(newWaifus));
+  getWaifus();
 }

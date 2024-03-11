@@ -23,11 +23,10 @@ export default function Backdrop({ children, isOpen }: BackdropProps) {
         to: {
           opacity: 1,
         },
+        config: { duration: 100 },
       });
     } else {
-      setTimeout(() => {
-        setOpenBackdrop(false);
-      }, 200);
+      setOpenBackdrop(false);
       api.start({
         from: {
           opacity: 1,

@@ -139,7 +139,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
       style={onChangeHandler()}
     >
       <Backdrop isOpen={openBackdrop}>
-        <WaifuList close={setOpenBackdrop} />
+        <WaifuList setIsOpen={setOpenBackdrop} />
       </Backdrop>
       {/* background */}
       <MouseParallax
