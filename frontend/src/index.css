@@ -35,11 +35,21 @@
   }
 }
 
+.chevron-down {
+  color: var(--primary-color-1);
+  transition: all 0.1s ease-in-out;
+}
+
+.chevron-down:hover {
+  color: var(--primary-color);
+  transition: all 0.1s ease-in-out;
+}
+
 .dropdown:hover {
-  background-color: rgba(40, 40, 40, 0.5);
+  background-color: var(--background-color-hover);
 }
 .dropdown:active {
-  background-color: rgba(70, 70, 70, 0.7);
+  background-color: var(--background-color-active);
 }
 
 .radial-gradient {
@@ -47,4 +57,38 @@
   height: 100%;
   z-index: 10;
   background-image: radial-gradient(transparent 50%, rgba(0, 0, 0, 0.8));
+}
+
+.home-button {
+  color: var(--primary-color-1);
+  border-color: var(--surface-color);
+  background-color: var(--surface-color-1);
+  transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.home-button:hover {
+  color: var(--primary-color);
+  border-color: var(--surface-color);
+  background-color: var(--background-color);
+  scale: 1.1;
+}
+.home-button:active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background-color: var(--background-color-active);
+  scale: 1;
+}
+
+.home-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-image: radial-gradient(transparent 60%, var(--background-color));
+  transition: all 0.1s ease-in-out;
+}
+
+.toggle-theme:hover {
+  transition: all 0.1s ease-in-out;
 }

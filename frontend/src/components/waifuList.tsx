@@ -32,6 +32,7 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
 
   const handleSaveList = () => {
     updateWaifus(newWaifus);
+    setIsOpen(false);
   };
 
   const handleCheckboxChange = (isChecked: boolean, index: number) => {

@@ -3,7 +3,7 @@
 // import { AxiosError, AxiosResponse } from "axios";
 // import Waifu from "../api/waifus/model";
 // import { getWaifus } from "../api/waifus/fetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -16,6 +16,7 @@ import WaifuInfo from "../components/waifuInfo";
 import { getWaifus } from "../api/waifus/fetch";
 import WaifuCard from "../components/waifuCard";
 import { MouseParallax } from "react-just-parallax";
+import Waifu from "../api/waifus/model";
 
 interface SliderProps {
   onChange: boolean[];
@@ -29,10 +30,13 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
   //   const waifusData = MyQuery.data?.data;
   // ******** COMMENTED FOR DEPLOYMENT ********
 
-  const data = getWaifus();
-  const waifuData = data;
+  const [waifuData, setWaifuData] = useState<Waifu[]>(getWaifus());
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalPages = waifuData?.length || 1;
+
+  useEffect(() => {
+    setWaifuData(getWaifus());
+  }, []);
 
   function next() {
     setCurrentIndex((prev: number) => (prev + 1) % totalPages);
@@ -124,7 +128,7 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
       </div>
 
       {/* pagination buttons */}
-      <div className="w-auto h-auto absolute left-1/2 translate-x-[-50%] bottom-6 flex gap-5 items-center justify-center bg-black  bg-opacity-30 rounded-full">
+      <div className="w-auto h-auto z-20 absolute left-1/2 translate-x-[-50%] bottom-6 flex gap-5 items-center justify-center bg-black  bg-opacity-30 rounded-full">
         {new Array(totalPages).fill(0).map((_, index) => (
           <button onClick={() => setCurrentIndex(index)} className="">
             <Circle

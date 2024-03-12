@@ -1,4 +1,12 @@
-import { ChevronDown, List, Moon, SquareUser, Sun } from "lucide-react";
+import {
+  ChevronDown,
+  List,
+  ListIcon,
+  Moon,
+  PlusIcon,
+  SquareUser,
+  Sun,
+} from "lucide-react";
 import MenuButton from "../components/menuButton";
 import { useEffect, useRef, useState } from "react";
 import { MouseParallax } from "react-just-parallax";
@@ -16,33 +24,27 @@ interface HomeProps {
   setOnChange: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
 export default function Home({ onChange, setOnChange }: HomeProps) {
-  const colors = {
-    dark_0: "rgba(5, 7, 15, 1)",
-    dark_1: "rgba(25, 25, 30 0.3)",
-    dark_2: "rgba(20, 20, 20, 0.2)",
-    dark_3: "rgba(40, 40, 40, 0.5)",
-    light_0: "rgba(246, 246, 246, 1)",
-    light_1: "rgba(255, 230, 230, 0.1)",
-    light_2: "rgba(255, 255, 255, 0.6)",
-    light_3: "rgba(100, 100, 100, 0.4)",
-  };
   const colorSchemes = {
-    dark: [
-      colors.light_0,
-      colors.dark_1,
-      colors.dark_2,
-      colors.dark_3,
-      colors.light_3,
-      colors.light_2,
-    ],
-    light: [
-      colors.dark_0,
-      colors.light_2,
-      colors.light_1,
-      colors.light_3,
-      colors.dark_2,
-      colors.dark_3,
-    ],
+    dark: {
+      primary: "rgba(235, 225, 225, 1)",
+      primary_1: "rgba(225, 225, 235, 0.5)",
+      background: "rgba(30, 30, 45, 0.2)",
+      background_1: "rgba(20, 20, 25, 0.3)",
+      background_2: "rgba(10, 10, 15, 0.4)",
+      surface: "rgba(140, 140, 145, 0.6)",
+      surface_1: "rgba(110, 110, 115, 0.4)",
+      surface_2: "rgba(90, 90, 95, 0.2)",
+    },
+    light: {
+      primary: "rgba(25, 25, 30, 1)",
+      primary_1: "rgba(50, 50, 55, 0.5)",
+      background: "rgba(210, 200, 200, 0.2)",
+      background_1: "rgba(155, 140, 140, 0.3)",
+      background_2: "rgba(125, 120, 120, 0.4)",
+      surface: "rgba(255, 250, 245, 0.5)",
+      surface_1: "rgba(240, 230, 230, 0.4)",
+      surface_2: "rgba(230, 220, 220, 0.6)",
+    },
   };
   const optionIcon = [<SquareUser />, <List />];
 
@@ -68,14 +70,14 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
 
   const buttonThemes = {
     dark: {
-      red: 5,
-      green: 7,
-      blue: 15,
+      red: 25,
+      green: 25,
+      blue: 30,
     },
     light: {
-      red: 246,
-      green: 246,
-      blue: 246,
+      red: 235,
+      green: 225,
+      blue: 225,
     },
   };
   const buttonConfigs = {
@@ -128,6 +130,24 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
 
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    console.log("Color Scheme:", colorScheme);
+    const root = document.documentElement;
+    console.log("root: " + root);
+    root.style.setProperty("--primary-color", colorScheme.primary);
+    root.style.setProperty("--primary-color-1", colorScheme.primary_1);
+    root.style.setProperty("--surface-color", colorScheme.surface);
+    root.style.setProperty("--surface-color-1", colorScheme.surface_1);
+    root.style.setProperty(
+      "--background-color-hover",
+      colorScheme.background_1
+    );
+    root.style.setProperty(
+      "--background-color-active",
+      colorScheme.background_2
+    );
+    root.style.setProperty("--background-color", colorScheme.background);
+  }, [colorScheme]);
 
   function openListHandle() {
     setOpenBackdrop(true);
@@ -165,24 +185,31 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
       >
         <button
           onClick={handleOpenSlider}
-          className="w-full h-auto absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center group"
+          className="w-1/3 h-auto z-10 absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center group"
         >
           <ChevronDown
             size={128}
-            className={`group-hover:animate-bounce group-active:scale-90 group-active:animate-none transition-all`}
-            style={{
-              color: `${colorScheme[0]}`,
-              transition: "all 0.3s ease-in-out",
-            }}
+            className={`chevron-down group-hover:animate-bounce group-active:scale-90 group-active:animate-none transition-all`}
           />
         </button>
+        <div className="w-auto h-auto z-10 absolute bottom-10 right-20 flex gap-2">
+          <button
+            onClick={openListHandle}
+            className="home-button p-2 border-2 rounded-full"
+          >
+            <ListIcon className="w-14 h-14" />
+          </button>
+          <button className="home-button p-1 border-2 rounded-full" style={{}}>
+            <PlusIcon className="w-16 h-16" />
+          </button>
+        </div>
       </section>
       {/* navbar */}
       <nav
-        className={`w-full h-20 absolute top-0 flex justify-evenly items-center animate-onload-up border-b-2 shadow-lg backdrop-blur-sm`}
+        className={`w-full h-20 z-20 absolute top-0 flex justify-evenly items-center animate-onload-up border-b-2 shadow-lg backdrop-blur-sm`}
         style={{
-          borderColor: `${colorScheme[5]}`,
-          backgroundColor: `${colorScheme[2]}`,
+          borderColor: `${colorScheme.surface}`,
+          backgroundColor: `${colorScheme.background}`,
           transition: "all 0.3s ease-in-out",
         }}
       >
@@ -191,8 +218,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
             <button
               className="dropdown w-full h-auto py-2 px-2 flex justify-between items-center border-b text-xl]"
               style={{
-                borderColor: `${colorScheme[5]}`,
-                color: `${colorScheme[0]}`,
+                borderColor: `${colorScheme.surface_1}`,
+                color: `${colorScheme.primary}`,
               }}
               onClick={() =>
                 optionName[index] == "Waifulist"
@@ -208,7 +235,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
         <h1
           className="select-none text-5xl font-bold capitalize"
           style={{
-            color: `${colorScheme[0]}`,
+            color: `${colorScheme.primary}`,
             transition: "all 0.3s ease-in-out",
           }}
         >
@@ -217,33 +244,33 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
         <button
           className={`w-[64px] h-[32px] relative rounded-full`}
           style={{
-            backgroundColor: `${colorScheme[4]}`,
+            backgroundColor: `${colorScheme.surface_2}`,
           }}
           onClick={() => handleTheme()}
         >
           <div
-            className={`absolute -top-[2px] right-0 flex items-center rounded-full border-2`}
+            className={`toggle-theme absolute -top-[2px] right-0 flex items-center rounded-full border-2`}
             style={{
               transform: `translateX(${darkMode ? -32 : 0}px)`,
-              backgroundColor: `${colorScheme[3]}`,
-              borderColor: `${colorScheme[5]}`,
+              backgroundColor: `${colorScheme.surface_1}`,
+              borderColor: `${colorScheme.surface}`,
               transition: "all 0.3s ease-in-out",
             }}
           >
-            {darkMode ? (
-              <Moon
+            {!darkMode ? (
+              <Sun
                 size={32}
                 style={{
-                  stroke: `${colorScheme[4]}`,
-                  fill: `${colorScheme[5]}`,
+                  stroke: `${colorScheme.primary}`,
                   transition: "all 0.3s ease-in-out",
                 }}
               />
             ) : (
-              <Sun
+              <Moon
                 size={32}
                 style={{
-                  stroke: `${colorScheme[0]}`,
+                  stroke: `${colorScheme.primary}`,
+                  fill: `${colorScheme.surface}`,
                   transition: "all 0.3s ease-in-out",
                 }}
               />
@@ -251,6 +278,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
           </div>
         </button>
       </nav>
+      <div className="home-vignette" />
     </div>
   );
 }
