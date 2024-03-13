@@ -92,3 +92,34 @@
 .toggle-theme:hover {
   transition: all 0.1s ease-in-out;
 }
+
+label {
+  color: #0f1116;
+  text-transform: capitalize;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+input {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #ffffff;
+  border: 1px solid #bcbcbd4f;
+  background-color: #333336a6;
+  transition: all 0.1s ease-in-out;
+  outline: none;
+}
+
+input::placeholder {
+  color: #ffffffc2;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -18,6 +18,7 @@ import image4 from "../public/images/4.jpeg";
 import image5 from "../public/images/5.jpeg";
 import Backdrop from "../components/backdrop";
 import WaifuList from "../components/waifuList";
+import WaifuForm from "../components/waifuForm";
 
 interface HomeProps {
   onChange: boolean[];
@@ -53,7 +54,8 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
   const [colorScheme, setColorScheme] = useState(colorSchemes.dark);
   const firstLoad = useRef(true);
 
-  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [openWaifuList, setOpenWaifuList] = useState(false);
+  const [openWaifuForm, setOpenWaifuForm] = useState(false);
 
   const handleThemeChange = (bool: boolean) => {
     if (bool === true) {
@@ -150,7 +152,10 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
   }, [colorScheme]);
 
   function openListHandle() {
-    setOpenBackdrop(true);
+    setOpenWaifuList(true);
+  }
+  function openFormHandle() {
+    setOpenWaifuForm(true);
   }
 
   return (
@@ -158,8 +163,11 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
       className="w-screen h-screen overflow-hidden absolute"
       style={onChangeHandler()}
     >
-      <Backdrop isOpen={openBackdrop}>
-        <WaifuList setIsOpen={setOpenBackdrop} />
+      <Backdrop isOpen={openWaifuList}>
+        <WaifuList setIsOpen={setOpenWaifuList} />
+      </Backdrop>
+      <Backdrop isOpen={openWaifuForm}>
+        <WaifuForm setIsOpen={setOpenWaifuForm} />
       </Backdrop>
       {/* background */}
       <MouseParallax
@@ -199,7 +207,11 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
           >
             <ListIcon className="w-14 h-14" />
           </button>
-          <button className="home-button p-1 border-2 rounded-full" style={{}}>
+          <button
+            onClick={openFormHandle}
+            className="home-button p-1 border-2 rounded-full"
+            style={{}}
+          >
             <PlusIcon className="w-16 h-16" />
           </button>
         </div>
