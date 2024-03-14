@@ -71,10 +71,10 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
                 className="px-5 py-2 flex items-center justify-between hover:bg-gray-700 hover:bg-opacity-20"
                 key={index}
               >
-                {waifu.name}
+                <span>{index + "/" + waifu.id + ": " + waifu.name}</span>
                 <input
                   onChange={(e) =>
-                    handleCheckboxChange(e.target.checked, index)
+                    handleCheckboxChange(e.target.checked, waifu.id)
                   }
                   className="w-5 h-5 cursor-pointer"
                   type="checkbox"
