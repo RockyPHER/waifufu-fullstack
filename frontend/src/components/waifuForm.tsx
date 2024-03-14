@@ -1,7 +1,7 @@
 import { Save, X } from "lucide-react";
 import { useState } from "react";
 import { schema } from "../api/waifus/schema";
-import Waifu from "../api/waifus/model";
+import { WaifuData } from "../api/waifus/model";
 
 interface WaifuFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -203,7 +203,7 @@ function getFormValues() {
       document.getElementById("name") as HTMLInputElement & { value: string }
     ).value,
     age: (
-      document.getElementById("age") as HTMLInputElement & { value: string }
+      document.getElementById("age") as HTMLInputElement & { value: number }
     )?.value,
     birthday:
       (
@@ -220,24 +220,24 @@ function getFormValues() {
     origin: (
       document.getElementById("origin") as HTMLInputElement & { value: string }
     ).value,
-    origin_url: (
+    originUrl: (
       document.getElementById("origin-url") as HTMLInputElement & {
         value: string;
       }
     ).value,
-    hair_color: (
+    hairColor: (
       document.getElementById("hair") as HTMLInputElement & { value: string }
     ).value,
-    eye_color: (
+    eyeColor: (
       document.getElementById("eye") as HTMLInputElement & { value: string }
     ).value,
     height: (
-      document.getElementById("height") as HTMLInputElement & { value: string }
+      document.getElementById("height") as HTMLInputElement & { value: number }
     ).value,
     weight: (
-      document.getElementById("weight") as HTMLInputElement & { value: string }
+      document.getElementById("weight") as HTMLInputElement & { value: number }
     ).value,
-    background_url: (
+    backgroundUrl: (
       document.getElementById("background") as HTMLInputElement & {
         value: string;
       }
@@ -247,7 +247,7 @@ function getFormValues() {
   return waifu;
 }
 
-function validateWaifu(waifu: Waifu) {
+function validateWaifu(waifu: WaifuData) {
   let test = schema.validate(waifu);
   console.log(test);
   return test;

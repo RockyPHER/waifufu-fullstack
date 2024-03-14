@@ -3,7 +3,7 @@ export default interface Waifu {
   id: number;
   name: string;
   age?: number;
-  backgroundUrl: string;
+  backgroundUrl?: string;
   heroUrl?: string;
   hairColor?: string;
   eyeColor?: string;
@@ -16,17 +16,18 @@ export default interface Waifu {
   updatedAt: Date;
 }
 
-interface WaifuData {
+export interface WaifuData {
   name: string;
-  age: number;
-  backgroundUrl: string;
-  heroUrl: string;
+  age?: number;
+  backgroundUrl?: string;
+  heroUrl?: string;
   hairColor?: string;
   eyeColor?: string;
   height?: number;
   weight?: number;
   birthday?: string;
   origin?: string;
+  originUrl?: string;
 }
 
 export type CreateWaifuData = WaifuData;

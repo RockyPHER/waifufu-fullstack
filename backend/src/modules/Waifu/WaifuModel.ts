@@ -1,13 +1,14 @@
 export interface Waifu {
   id: number;
   name: string;
-  age: number;
+  age?: number;
   haircolor?: string;
   eyecolor?: string;
   height?: number;
   weight?: number;
   birthday?: string;
   origin?: string;
+  originUrl?: string;
   backgroundUrl?: string;
   heroUrl?: string;
   createdAt: Date;
@@ -16,13 +17,14 @@ export interface Waifu {
 
 export interface CreateWaifuInput {
   name: string;
-  age: number;
+  age?: number;
   haircolor?: string;
   eyecolor?: string;
   height?: number;
   weight?: number;
   birthday?: string;
   origin?: string;
+  originUrl?: string;
   backgroundUrl?: string;
   heroUrl?: string;
 }
@@ -36,6 +38,7 @@ export interface UpdateWaifuInput {
   weight?: number;
   birthday?: string;
   origin?: string;
+  originUrl?: string;
   backgroundUrl?: string;
   heroUrl?: string;
 }

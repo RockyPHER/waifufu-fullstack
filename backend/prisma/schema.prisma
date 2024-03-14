@@ -13,13 +13,14 @@ datasource db {
 model Waifu {
   id            Int      @id @default(autoincrement())
   name          String
-  age           Int
+  age           Int?
   hairColor     String?
   eyeColor      String?
   height        Int?
   weight        Int?
   birthday      String?
   origin        String?
+  originUrl     String?
   backgroundUrl String?
   heroUrl       String?
   createdAt     DateTime @default(now())
