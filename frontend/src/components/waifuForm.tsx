@@ -77,19 +77,22 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
         </div>
 
         <div className="w-full flex justify-between">
-          <div className="flex flex-col">
+          <div className="w-[245px] flex flex-col">
             <label htmlFor="age">Age</label>
             <input name="age" placeholder="16" type="number" min={0}></input>
           </div>
-          <div className="flex flex-col">
+          <div className="w-[245px] flex flex-col">
             <label htmlFor="birthday">birthday</label>
-            <div className="flex">
-              <select onChange={(e) => handleBirthdayOption(e)}>
+            <div className="w-full flex justify-between">
+              <select
+                className="select-month"
+                onChange={(e) => handleBirthdayOption(e)}
+              >
                 {months.map((month, index) => (
                   <option key={index}>{month}</option>
                 ))}
               </select>
-              <select>
+              <select className="select-day">
                 {Array.from({ length: maxDays }, (_, index) => (
                   <option key={index}>{index + 1}</option>
                 ))}
@@ -99,41 +102,58 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
         </div>
 
         <div className="w-full flex justify-between">
-          <div className="flex flex-col">
-            <label>Origin</label>
-            <input></input>
+          <div className="w-[245px] flex flex-col">
+            <label htmlFor="origin">Origin</label>
+            <input
+              name="origin"
+              placeholder="Anime/Origin name"
+              type="text"
+            ></input>
           </div>
-          <div className="flex flex-col">
-            <label>Origin Url</label>
-            <input></input>
-          </div>
-        </div>
-
-        <div className="w-full flex justify-between">
-          <div className="flex flex-col">
-            <label>Hair Color</label>
-            <input></input>
-          </div>
-          <div className="flex flex-col">
-            <label>Eye Color</label>
-            <input></input>
+          <div className="w-[245px] flex flex-col">
+            <label htmlFor="origin-url">Origin Url</label>
+            <input
+              name="origin-url"
+              placeholder="https://exampleorigin.com"
+              type="text"
+            ></input>
           </div>
         </div>
 
         <div className="w-full flex justify-between">
-          <div className="flex flex-col">
-            <label>height</label>
-            <input></input>
+          <div className="w-[245px] flex flex-col">
+            <label htmlFor="hair">Hair Color</label>
+            <input name="hair" placeholder="purple" type="text"></input>
           </div>
-          <div className="flex flex-col">
-            <label>weight</label>
-            <input></input>
+          <div className="w-[245px] flex flex-col">
+            <label htmlFor="eye">Eye Color</label>
+            <input name="eye" placeholder="blue" type="text"></input>
+          </div>
+        </div>
+
+        <div className="w-full flex justify-between">
+          <div className="w-[245px] flex flex-col">
+            <label htmlFor="height">height</label>
+            <input
+              name="height"
+              placeholder="157"
+              type="number"
+              min={0}
+            ></input>
+          </div>
+          <div className="w-[245px] flex flex-col">
+            <label htmlFor="weight">weight</label>
+            <input name="weight" placeholder="45" type="number" min={0}></input>
           </div>
         </div>
 
         <div className="w-full flex flex-col">
-          <label>background url</label>
-          <input></input>
+          <label htmlFor="background">background url</label>
+          <input
+            name="background"
+            placeholder="https://examplebackground.com"
+            type="text"
+          ></input>
         </div>
         <button className="my-6 px-10 py-2 bg-black bg-opacity-50 text-white rounded hover:bg-opacity-70 transition-all">
           <Save className="w-8 h-8" />

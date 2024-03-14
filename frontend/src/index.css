@@ -123,3 +123,25 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #333336a6;
+  border: 1px solid #bcbcbd4f;
+  color: #ffffff;
+  padding: 4px 8px;
+}
+select::-ms-expand {
+  display: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+}
+
+.select-month {
+  border-radius: 5px 0px 0px 5px;
+  width: 195px;
+}
+.select-day {
+  border-radius: 0px 5px 5px 0px;
+  width: 50px;
+}
