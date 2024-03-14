@@ -1,7 +1,8 @@
-import { Save, X } from "lucide-react";
-import { useState } from "react";
+import { Check, Save, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { schema } from "../api/waifus/schema";
-import { WaifuData } from "../api/waifus/model";
+import Backdrop from "./backdrop";
+import { createWaifu } from "../api/waifus/fetch";
 
 interface WaifuFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,11 +39,20 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
   };
   const [selectedMonth, setSelectedMonth] = useState(months[0]);
   const [maxDays, setMaxDays] = useState(days[selectedMonth]);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [success, setSuccess] = useState(false);
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const waifus = getFormValues();
 
-    validateWaifu(getFormValues());
-  };
+    try {
+      schema.validate(waifus);
+      setSuccess(true);
+    } catch (err) {
+      console.error(err);
+      setSuccess(false);
+      alert("Please check your input");
+    }
+  }
 
   function handleClose() {
     setIsOpen(false);
@@ -54,8 +64,25 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
     setMaxDays(days[month]);
   }
 
+  useEffect(() => {
+    if (success) {
+      createWaifu(getFormValues());
+      setTimeout(() => {
+        setIsOpen(false);
+        setSuccess(false);
+      }, 1000);
+    }
+  }, [success]);
+
   return (
     <div className="w-[600px] h-auto bg-white bg-opacity-30 rounded-xl overflow-hidden">
+      {success && (
+        <Backdrop isOpen={success}>
+          <div>
+            <Check className="w-20 h-20" />
+          </div>
+        </Backdrop>
+      )}
       <div className="w-full h-auto px-10 py-4 flex justify-between items-center bg-black bg-opacity-50">
         <h1 className="text-3xl">Add Waifu</h1>
         <button
@@ -119,7 +146,6 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
           <div className="w-[245px] flex flex-col">
             <label htmlFor="origin">Origin</label>
             <input
-              required
               id="origin"
               name="origin"
               placeholder="Anime/Origin name"
@@ -245,10 +271,4 @@ function getFormValues() {
   };
 
   return waifu;
-}
-
-function validateWaifu(waifu: WaifuData) {
-  let test = schema.validate(waifu);
-  console.log(test);
-  return test;
 }

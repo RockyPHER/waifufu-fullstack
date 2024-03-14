@@ -9,7 +9,7 @@ export default interface Waifu {
   eyeColor?: string;
   height?: number;
   weight?: number;
-  origin: string;
+  origin?: string;
   originUrl?: string;
   birthday?: string;
   createdAt: Date;
