@@ -1,12 +1,13 @@
 import { Save, X } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { schema } from "../api/waifus/schema";
+import Waifu from "../api/waifus/model";
 
 interface WaifuFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
-  const [birthdayValue, setBirthdayValue] = useState("");
   const months = [
     "january",
     "february",
@@ -39,7 +40,8 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
   const [maxDays, setMaxDays] = useState(days[selectedMonth]);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsOpen(false);
+
+    validateWaifu(getFormValues());
   };
 
   function handleClose() {
@@ -51,6 +53,7 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
     setSelectedMonth(month);
     setMaxDays(days[month]);
   }
+
   return (
     <div className="w-[600px] h-auto bg-white bg-opacity-30 rounded-xl overflow-hidden">
       <div className="w-full h-auto px-10 py-4 flex justify-between items-center bg-black bg-opacity-50">
@@ -69,6 +72,7 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
         <div className="w-full flex flex-col">
           <label htmlFor="name">Name</label>
           <input
+            required
             placeholder="Waifu name"
             id="name"
             name="name"
@@ -79,20 +83,30 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
         <div className="w-full flex justify-between">
           <div className="w-[245px] flex flex-col">
             <label htmlFor="age">Age</label>
-            <input name="age" placeholder="16" type="number" min={0}></input>
+            <input
+              id="age"
+              name="age"
+              placeholder="16"
+              type="number"
+              min={0}
+            ></input>
           </div>
           <div className="w-[245px] flex flex-col">
             <label htmlFor="birthday">birthday</label>
             <div className="w-full flex justify-between">
               <select
+                id="birth-month"
+                name="birthday"
                 className="select-month"
                 onChange={(e) => handleBirthdayOption(e)}
               >
+                <option>none</option>
                 {months.map((month, index) => (
                   <option key={index}>{month}</option>
                 ))}
               </select>
-              <select className="select-day">
+              <select id="birth-day" name="birthday" className="select-day">
+                <option>--</option>
                 {Array.from({ length: maxDays }, (_, index) => (
                   <option key={index}>{index + 1}</option>
                 ))}
@@ -105,6 +119,8 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
           <div className="w-[245px] flex flex-col">
             <label htmlFor="origin">Origin</label>
             <input
+              required
+              id="origin"
               name="origin"
               placeholder="Anime/Origin name"
               type="text"
@@ -113,6 +129,7 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
           <div className="w-[245px] flex flex-col">
             <label htmlFor="origin-url">Origin Url</label>
             <input
+              id="origin-url"
               name="origin-url"
               placeholder="https://exampleorigin.com"
               type="text"
@@ -123,11 +140,16 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
         <div className="w-full flex justify-between">
           <div className="w-[245px] flex flex-col">
             <label htmlFor="hair">Hair Color</label>
-            <input name="hair" placeholder="purple" type="text"></input>
+            <input
+              id="hair"
+              name="hair"
+              placeholder="purple"
+              type="text"
+            ></input>
           </div>
           <div className="w-[245px] flex flex-col">
             <label htmlFor="eye">Eye Color</label>
-            <input name="eye" placeholder="blue" type="text"></input>
+            <input id="eye" name="eye" placeholder="blue" type="text"></input>
           </div>
         </div>
 
@@ -135,6 +157,7 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
           <div className="w-[245px] flex flex-col">
             <label htmlFor="height">height</label>
             <input
+              id="height"
               name="height"
               placeholder="157"
               type="number"
@@ -143,22 +166,89 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
           </div>
           <div className="w-[245px] flex flex-col">
             <label htmlFor="weight">weight</label>
-            <input name="weight" placeholder="45" type="number" min={0}></input>
+            <input
+              id="weight"
+              name="weight"
+              placeholder="45"
+              type="number"
+              min={0}
+            ></input>
           </div>
         </div>
 
         <div className="w-full flex flex-col">
           <label htmlFor="background">background url</label>
           <input
+            required
+            id="background"
             name="background"
             placeholder="https://examplebackground.com"
             type="text"
           ></input>
         </div>
-        <button className="my-6 px-10 py-2 bg-black bg-opacity-50 text-white rounded hover:bg-opacity-70 transition-all">
+        <button
+          value="submit"
+          className="my-6 px-10 py-2 bg-black bg-opacity-50 text-white rounded hover:bg-opacity-70 transition-all"
+        >
           <Save className="w-8 h-8" />
         </button>
       </form>
     </div>
   );
+}
+
+function getFormValues() {
+  let waifu = {
+    name: (
+      document.getElementById("name") as HTMLInputElement & { value: string }
+    ).value,
+    age: (
+      document.getElementById("age") as HTMLInputElement & { value: string }
+    )?.value,
+    birthday:
+      (
+        document.querySelector("#birth-month") as HTMLSelectElement & {
+          value: string;
+        }
+      ).value +
+      "_" +
+      (
+        document.querySelector("#birth-day") as HTMLSelectElement & {
+          value: string;
+        }
+      ).value,
+    origin: (
+      document.getElementById("origin") as HTMLInputElement & { value: string }
+    ).value,
+    origin_url: (
+      document.getElementById("origin-url") as HTMLInputElement & {
+        value: string;
+      }
+    ).value,
+    hair_color: (
+      document.getElementById("hair") as HTMLInputElement & { value: string }
+    ).value,
+    eye_color: (
+      document.getElementById("eye") as HTMLInputElement & { value: string }
+    ).value,
+    height: (
+      document.getElementById("height") as HTMLInputElement & { value: string }
+    ).value,
+    weight: (
+      document.getElementById("weight") as HTMLInputElement & { value: string }
+    ).value,
+    background_url: (
+      document.getElementById("background") as HTMLInputElement & {
+        value: string;
+      }
+    ).value,
+  };
+
+  return waifu;
+}
+
+function validateWaifu(waifu: Waifu) {
+  let test = schema.validate(waifu);
+  console.log(test);
+  return test;
 }

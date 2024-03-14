@@ -111,7 +111,7 @@ input {
 }
 
 input::placeholder {
-  color: #ffffffc2;
+  color: #ffffff77;
 }
 
 input::-webkit-outer-spin-button,
@@ -127,6 +127,7 @@ input[type="number"] {
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
+  outline: none;
   appearance: none;
   background-color: #333336a6;
   border: 1px solid #bcbcbd4f;
@@ -134,7 +135,17 @@ select {
   padding: 4px 8px;
 }
 select::-ms-expand {
-  display: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+  width: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+}
+select::-webkit-scrollbar {
+  width: 2px; /* Hide the default scrollbar in WebKit browsers */
+}
+select::-webkit-scrollbar-track {
+  background-color: #333336a6;
+}
+select::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 9999px;
 }
 
 .select-month {
