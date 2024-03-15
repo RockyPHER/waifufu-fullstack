@@ -17,6 +17,7 @@ export default interface Waifu {
 }
 
 export interface WaifuData {
+  id: number;
   name: string;
   age?: number;
   backgroundUrl?: string;

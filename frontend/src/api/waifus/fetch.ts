@@ -2,7 +2,7 @@
 // import Waifu, { CreateWaifuData, UpdateWaifuData } from "./model";
 
 import waifusData from "../waifus.json";
-import Waifu, { WaifuData } from "./model";
+import Waifu, { CreateWaifuData, UpdateWaifuData, WaifuData } from "./model";
 
 // export async function getWaifus() {
 //   return await api.get<Waifu[]>("/waifus");
@@ -29,14 +29,23 @@ export function getWaifus() {
   return waifus;
 }
 
-export function updateWaifus(waifusList: Waifu[]) {
-  const newWaifus = waifusList;
-  localStorage.setItem("waifus", JSON.stringify(newWaifus));
+export function updateWaifus(newWaifus: UpdateWaifuData | UpdateWaifuData[]) {
+
+  const updatedWaifus = Array.isArray(newWaifus) ? newWaifus.forEach((newWaifu) => {
+    waifus.map((currentWaifu) => {
+      currentWaifu.id === newWaifu.id ? newWaifu : currentWaifu;
+    })
+  }) : waifus.map((currentWaifu) => {
+    currentWaifu.id === newWaifus.id
+  })
+
+  localStorage.setItem("waifus", JSON.stringify(updatedWaifus));
   getWaifus();
-  return newWaifus;
+
+  return updatedWaifus;
 }
 
-export function createWaifu(waifuData: WaifuData) {
+export function createWaifu(waifuData: CreateWaifuData) {
   getWaifus();
   const newWaifu = {
     ...waifuData,

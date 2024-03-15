@@ -2,13 +2,20 @@ import { Check, Save, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { schema } from "../api/waifus/schema";
 import Backdrop from "./backdrop";
-import { createWaifu } from "../api/waifus/fetch";
+import { createWaifu, updateWaifus } from "../api/waifus/fetch";
+import { WaifuData } from "../api/waifus/model";
 
 interface WaifuFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  waifu?: WaifuData;
+  editMode: boolean;
 }
 
-export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
+export default function WaifuForm({
+  setIsOpen,
+  editMode,
+  waifu,
+}: WaifuFormProps) {
   const months = [
     "january",
     "february",
@@ -40,10 +47,94 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
   const [selectedMonth, setSelectedMonth] = useState(months[0]);
   const [maxDays, setMaxDays] = useState(days[selectedMonth]);
   const [success, setSuccess] = useState(false);
+
+  function setFormValues(): void {
+    (document.getElementById("name") as HTMLInputElement).value =
+      waifu?.name || "";
+    (document.getElementById("age") as HTMLInputElement).value =
+      waifu?.age?.toString() || "";
+    (document.querySelector("#birth-month") as HTMLSelectElement).value =
+      waifu?.birthday?.split("_")[0] || "";
+    (document.querySelector("#birth-day") as HTMLSelectElement).value =
+      waifu?.birthday?.split("_")[1] || "";
+    (document.getElementById("hair") as HTMLInputElement).value =
+      waifu?.hairColor || "";
+    (document.getElementById("eye") as HTMLInputElement).value =
+      waifu?.eyeColor || "";
+    (document.getElementById("height") as HTMLInputElement).value =
+      waifu?.height?.toString() || "";
+    (document.getElementById("weight") as HTMLInputElement).value =
+      waifu?.weight?.toString() || "";
+  }
+
+  function getFormValues() {
+    let waifu = {
+      id: editMode ? getWaifuId() : Math.floor(Math.random() * 100000),
+      name: (
+        document.getElementById("name") as HTMLInputElement & { value: string }
+      ).value,
+      age: (
+        document.getElementById("age") as HTMLInputElement & { value: number }
+      )?.value,
+      birthday:
+        (
+          document.querySelector("#birth-month") as HTMLSelectElement & {
+            value: string;
+          }
+        ).value +
+        "_" +
+        (
+          document.querySelector("#birth-day") as HTMLSelectElement & {
+            value: string;
+          }
+        ).value,
+      origin: (
+        document.getElementById("origin") as HTMLInputElement & {
+          value: string;
+        }
+      ).value,
+      originUrl: (
+        document.getElementById("origin-url") as HTMLInputElement & {
+          value: string;
+        }
+      ).value,
+      hairColor: (
+        document.getElementById("hair") as HTMLInputElement & { value: string }
+      ).value,
+      eyeColor: (
+        document.getElementById("eye") as HTMLInputElement & { value: string }
+      ).value,
+      height: (
+        document.getElementById("height") as HTMLInputElement & {
+          value: number;
+        }
+      ).value,
+      weight: (
+        document.getElementById("weight") as HTMLInputElement & {
+          value: number;
+        }
+      ).value,
+      backgroundUrl: (
+        document.getElementById("background") as HTMLInputElement & {
+          value: string;
+        }
+      ).value,
+    };
+
+    return waifu;
+  }
+
+  function getWaifuId() {
+    return waifu
+      ? waifu.id
+      : (() => {
+          throw new Error("Waifu ID not found");
+        })();
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const waifus = getFormValues();
-
     try {
       schema.validate(waifus);
       setSuccess(true);
@@ -66,20 +157,33 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
 
   useEffect(() => {
     if (success) {
-      createWaifu(getFormValues());
-      setTimeout(() => {
-        setIsOpen(false);
-        setSuccess(false);
-      }, 1000);
+      if (editMode) {
+        updateWaifus(getFormValues());
+        setTimeout(() => {
+          setIsOpen(false);
+          setSuccess(false);
+        }, 500);
+      } else {
+        createWaifu(getFormValues());
+        setTimeout(() => {
+          setIsOpen(false);
+          setSuccess(false);
+        }, 500);
+      }
     }
   }, [success]);
+  useEffect(() => {
+    if (editMode) {
+      setFormValues();
+    }
+  });
 
   return (
     <div className="w-[600px] h-auto bg-white bg-opacity-30 rounded-xl overflow-hidden">
       {success && (
         <Backdrop isOpen={success}>
-          <div>
-            <Check className="w-20 h-20" />
+          <div className="w-full h-full flex justify-center items-center">
+            <Check className="w-20 h-20 text-green-700" />
           </div>
         </Backdrop>
       )}
@@ -127,7 +231,7 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
                 className="select-month"
                 onChange={(e) => handleBirthdayOption(e)}
               >
-                <option>none</option>
+                <option>unknown</option>
                 {months.map((month, index) => (
                   <option key={index}>{month}</option>
                 ))}
@@ -221,54 +325,4 @@ export default function WaifuForm({ setIsOpen }: WaifuFormProps) {
       </form>
     </div>
   );
-}
-
-function getFormValues() {
-  let waifu = {
-    name: (
-      document.getElementById("name") as HTMLInputElement & { value: string }
-    ).value,
-    age: (
-      document.getElementById("age") as HTMLInputElement & { value: number }
-    )?.value,
-    birthday:
-      (
-        document.querySelector("#birth-month") as HTMLSelectElement & {
-          value: string;
-        }
-      ).value +
-      "_" +
-      (
-        document.querySelector("#birth-day") as HTMLSelectElement & {
-          value: string;
-        }
-      ).value,
-    origin: (
-      document.getElementById("origin") as HTMLInputElement & { value: string }
-    ).value,
-    originUrl: (
-      document.getElementById("origin-url") as HTMLInputElement & {
-        value: string;
-      }
-    ).value,
-    hairColor: (
-      document.getElementById("hair") as HTMLInputElement & { value: string }
-    ).value,
-    eyeColor: (
-      document.getElementById("eye") as HTMLInputElement & { value: string }
-    ).value,
-    height: (
-      document.getElementById("height") as HTMLInputElement & { value: number }
-    ).value,
-    weight: (
-      document.getElementById("weight") as HTMLInputElement & { value: number }
-    ).value,
-    backgroundUrl: (
-      document.getElementById("background") as HTMLInputElement & {
-        value: string;
-      }
-    ).value,
-  };
-
-  return waifu;
 }

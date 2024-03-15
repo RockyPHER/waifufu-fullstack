@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { backupWaifus, getWaifus, updateWaifus } from "../api/waifus/fetch";
 import { Pencil, RotateCw, Save, Trash, Undo2, X } from "lucide-react";
-import Waifu from "../api/waifus/model";
+import Waifu, { UpdateWaifuData } from "../api/waifus/model";
+import WaifuForm from "./waifuForm";
+import Backdrop from "./backdrop";
 
 interface WaifuListProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,6 +13,8 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
   const [waifus, setWaifus] = useState<Waifu[]>(getWaifus());
   const [newWaifus, setNewWaifus] = useState<Waifu[]>(waifus);
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [waifuFormData, setWaifuFormData] = useState<UpdateWaifuData>();
 
   const handleDeleteWaifu = (index: number | number[]) => {
     setNewWaifus((prevWaifus) => {
@@ -42,14 +46,28 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
         : prevCheckedItems.filter((item) => item !== index)
     );
   };
+  const handleEditWaifu = (waifu: UpdateWaifuData) => {
+    setWaifuFormData(waifu);
+    setOpenBackdrop(true);
+  };
 
   useEffect(() => {
     setWaifus(getWaifus());
     setNewWaifus(waifus);
     console.log("Waifus updated:", waifus);
   }, []);
+
   return (
     <div className="w-[600px] max-h-[500px] flex flex-col overflow-hidden bg-white bg-opacity-50 rounded-xl">
+      {openBackdrop && (
+        <Backdrop isOpen={openBackdrop}>
+          <WaifuForm
+            waifu={waifuFormData}
+            editMode={true}
+            setIsOpen={setOpenBackdrop}
+          />
+        </Backdrop>
+      )}
       {/* header */}
       <div className="w-full h-auto px-5 py-4 flex justify-between items-center bg-black bg-opacity-50">
         <h1 className="w-auto h-auto flex items-center select-none font-bold text-4xl text-gray-300">
@@ -63,34 +81,49 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
         </button>
       </div>
       {/* body */}
-      <div className="overflow-y-auto">
-        <ol className="text-black">
-          {newWaifus &&
-            newWaifus.map((waifu, index) => (
-              <li
-                className="px-5 py-2 flex items-center justify-between hover:bg-white hover:bg-opacity-30"
-                key={index}
-              >
-                <span className="max-w-[460px] max-h-[50px] text-md overflow-clip">
-                  <p>{waifu.id + " : " + waifu.name}</p>
-                  <p>{waifu.backgroundUrl}</p>
-                </span>
-                <div className="flex items-center gap-2">
-                  <button className="p-1 border rounded-full">
-                    <Pencil className="w-5 h-5" />
-                  </button>
-                  <input
-                    className="w-6 h-6"
-                    onChange={(e) =>
-                      handleCheckboxChange(e.target.checked, waifu.id)
-                    }
-                    type="checkbox"
-                    id={index.toString()}
-                  />
-                </div>
-              </li>
-            ))}
-        </ol>
+      <div className="px-5 py-2 overflow-y-auto">
+        <table className="w-full">
+          <thead>
+            <th>id</th>
+            <th>name</th>
+            <th>backgroundUrl</th>
+            <th>options</th>
+          </thead>
+          <tbody>
+            {newWaifus &&
+              newWaifus.map((waifu, index) => (
+                <tr className="row" key={index}>
+                  <td className="idCol">{waifu.id}</td>
+                  <td className="nameCol">{waifu.name}</td>
+                  <td className="backgroundCol">
+                    <a
+                      className="hover:text-blue-800 hover:text-opacity-70 transition-all"
+                      target="_blank"
+                      href={waifu.backgroundUrl}
+                    >
+                      {waifu.backgroundUrl}
+                    </a>
+                  </td>
+                  <td className="optionsCol">
+                    <input
+                      onChange={(e) =>
+                        handleCheckboxChange(e.target.checked, waifu.id)
+                      }
+                      className="w-5 h-5 cursor-pointer"
+                      type="checkbox"
+                      checked={checkedItems.includes(waifu.id)}
+                    ></input>
+                    <button
+                      onClick={() => handleEditWaifu(waifu)}
+                      className="edit-button"
+                    >
+                      <Pencil className="w-5 h-5" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
       {/* division line */}
       <div className="w-full h-auto flex justify-center items-center">

@@ -159,3 +159,63 @@ select::-webkit-scrollbar-thumb {
   border-radius: 0px 5px 5px 0px;
   width: 50px;
 }
+
+tr:hover {
+  background-color: #2424242d;
+}
+tr {
+  width: 100%;
+  transition: all 0.1s ease-in-out;
+  border-bottom: 1px solid #ffffff4f;
+}
+th {
+  text-align: center;
+  font-size: 1.2em;
+  background-color: #24242462;
+  border-right: 1px solid #ffffff4f;
+}
+table td .idCol {
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+}
+.nameCol {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px;
+}
+.backgroundCol {
+  max-width: 260px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+table td.optionsCol {
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+table td.optionsCol input {
+  margin: 4px;
+}
+
+.edit-button {
+  border-radius: 9999px;
+  border: 1px solid #ffffff70;
+  padding: 4px;
+  color: #ffffff70;
+  background-color: #aca1a152;
+  transition: all 0.1s ease-in-out;
+}
+
+.edit-button:hover {
+  color: #fff;
+  background-color: #24242491;
+}
+.edit-button:active {
+  background-color: #242424c0;
+}
