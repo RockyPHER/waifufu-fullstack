@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { backupWaifus, getWaifus, updateWaifus } from "../api/waifus/fetch";
-import { Pen, Pencil, RotateCw, Save, Trash, Undo2, X } from "lucide-react";
+import { Pencil, RotateCw, Save, Trash, Undo2, X } from "lucide-react";
 import Waifu from "../api/waifus/model";
 
 interface WaifuListProps {
