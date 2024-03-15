@@ -13,10 +13,12 @@ import {
   Trash,
 } from "lucide-react";
 import WaifuInfo from "../components/waifuInfo";
-import { getWaifus } from "../api/waifus/fetch";
+import { getWaifus, updateWaifus } from "../api/waifus/fetch";
 import WaifuCard from "../components/waifuCard";
 import { MouseParallax } from "react-just-parallax";
 import Waifu from "../api/waifus/model";
+import Backdrop from "../components/backdrop";
+import WaifuForm from "../components/waifuForm";
 
 interface SliderProps {
   onChange: boolean[];
@@ -33,6 +35,7 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
   const [waifuData, setWaifuData] = useState<Waifu[]>(getWaifus());
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalPages = waifuData?.length || 1;
+  const [openForm, setOpenForm] = useState(false);
 
   useEffect(() => {
     setWaifuData(getWaifus());
@@ -57,6 +60,20 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
     setOnChange([true, false]);
   }
 
+  function handleDelete() {
+    const id = waifuData[currentIndex].id;
+    const newWaifus = waifuData.filter((waifu) => waifu.id !== id);
+    updateWaifus(newWaifus);
+    setWaifuData(newWaifus);
+    setCurrentIndex((prev: number) =>
+      prev === 0 ? 0 : (prev - 1) % totalPages
+    );
+  }
+
+  function handleAdd() {
+    setOpenForm(true);
+  }
+
   function onChangeHandler() {
     if (onChange[1] === true) {
       return styleOnChange;
@@ -76,13 +93,25 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
       className="w-full h-full absolute overflow-hidden flex items-center "
       style={onChangeHandler()}
     >
+      {openForm && (
+        <Backdrop
+          isOpen={openForm}
+          children={<WaifuForm setIsOpen={setOpenForm} />}
+        />
+      )}
       <div className="radial-gradient" />
       {/* edit buttons */}
       <div className="w-auto h-[80px] absolute z-30 bottom-10 right-20 flex gap-2">
-        <button className="w-16 h-16 flex justify-center items-center border-2 rounded-full bg-white bg-opacity-0 hover:scale-110 hover:bg-opacity-50 active:scale-100 active:bg-opacity-80 transition-all">
+        <button
+          onClick={handleAdd}
+          className="w-16 h-16 flex justify-center items-center border-2 rounded-full bg-white bg-opacity-0 hover:scale-110 hover:bg-opacity-50 active:scale-100 active:bg-opacity-80 transition-all"
+        >
           <Plus className="w-14 h-14 text-white" />
         </button>
-        <button className="w-16 h-16 flex justify-center items-center border-2 rounded-full bg-white bg-opacity-0 hover:scale-110 hover:bg-opacity-50 active:scale-100 active:bg-opacity-80 transition-all">
+        <button
+          onClick={handleDelete}
+          className="w-16 h-16 flex justify-center items-center border-2 rounded-full bg-white bg-opacity-0 hover:scale-110 hover:bg-opacity-50 active:scale-100 active:bg-opacity-80 transition-all"
+        >
           <Trash className="w-10 h-10 text-white" />
         </button>
         <button

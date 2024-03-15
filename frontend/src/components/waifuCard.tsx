@@ -1,6 +1,6 @@
 interface WaifuCardProps {
-  backgroundUrl: string;
-  heroUrl: string;
+  backgroundUrl?: string;
+  heroUrl?: string;
 }
 
 export default function WaifuCard({ backgroundUrl }: WaifuCardProps) {

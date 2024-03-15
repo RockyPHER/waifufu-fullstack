@@ -137,12 +137,15 @@ select {
 select::-ms-expand {
   width: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
 }
+div::-webkit-scrollbar,
 select::-webkit-scrollbar {
   width: 2px; /* Hide the default scrollbar in WebKit browsers */
 }
+div::-webkit-scrollbar-track,
 select::-webkit-scrollbar-track {
   background-color: #333336a6;
 }
+div::-webkit-scrollbar-thumb,
 select::-webkit-scrollbar-thumb {
   background-color: #fff;
   border-radius: 9999px;
