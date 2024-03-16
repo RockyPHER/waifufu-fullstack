@@ -15,7 +15,10 @@ import Waifu, { CreateWaifuData, UpdateWaifuData, WaifuData } from "./model";
 // export async function updateWaifu(data: UpdateWaifuData) {
 //   return await api.put<Waifu>("/waifus", data);
 // }
-var waifus: Waifu[];
+export let waifus: Waifu[] = JSON.parse(JSON.stringify(waifusData));
+
+console.log("waifus :" + waifus)
+
 export function backupWaifus() {
   waifus = JSON.parse(JSON.stringify(waifusData));
   localStorage.setItem("waifus", JSON.stringify(waifus));
@@ -23,9 +26,13 @@ export function backupWaifus() {
 }
 
 export function getWaifus() {
-  waifus = localStorage.getItem("waifus")
-    ? JSON.parse(localStorage.getItem("waifus")!)
-    : JSON.parse(JSON.stringify(waifusData));
+  const storedWaifus = localStorage.getItem("waifus");
+  if (storedWaifus === undefined) {
+    waifus = JSON.parse(storedWaifus)
+  } else {
+    waifus = JSON.parse(JSON.stringify(waifusData));
+    localStorage.setItem("waifus", JSON.stringify(waifus));
+  }
   return waifus;
 }
 
@@ -45,11 +52,26 @@ export function updateWaifus(newWaifus: UpdateWaifuData | UpdateWaifuData[]) {
   return updatedWaifus;
 }
 
+export function deleteWaifus(deleteWaifus: WaifuData | WaifuData[]) {
+
+  const deletedWaifus = Array.isArray(deleteWaifus) ? deleteWaifus.forEach((deleteWaifu) => {
+    waifus.filter((waifu) => {
+      deleteWaifu.id !== waifu.id
+    })
+  }) : waifus.filter((waifu) => {
+    deleteWaifus.id !== waifu.id
+  })
+
+  localStorage.setItem("waifus", JSON.stringify(deletedWaifus));
+  getWaifus();
+
+  return deletedWaifus;
+}
+
 export function createWaifu(waifuData: CreateWaifuData) {
   getWaifus();
   const newWaifu = {
     ...waifuData,
-    id: Math.floor(Math.random() * 1000000),
     createdAt: new Date(),
     updatedAt: new Date(),
   };

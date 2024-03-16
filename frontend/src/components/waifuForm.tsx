@@ -168,7 +168,7 @@ export default function WaifuForm({
         setTimeout(() => {
           setIsOpen(false);
           setSuccess(false);
-        }, 500);
+        }, 800);
       }
     }
   }, [success]);
@@ -182,8 +182,10 @@ export default function WaifuForm({
     <div className="w-[600px] h-auto bg-white bg-opacity-30 rounded-xl overflow-hidden">
       {success && (
         <Backdrop isOpen={success}>
-          <div className="w-full h-full flex justify-center items-center">
-            <Check className="w-20 h-20 text-green-700" />
+          <div className="w-full h-full flex justify-center items-center transition-all">
+            <div className="p-2 rounded-full border-2">
+              <Check className="w-20 h-20 text-green-300" />
+            </div>
           </div>
         </Backdrop>
       )}

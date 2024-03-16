@@ -65,6 +65,14 @@ export default function WaifuInfo({ waifu }: WaifuInfoProps) {
     );
   });
 
+  function convertBirthday(birthday: string) {
+    if (birthday === "unknown_--") {
+      return "unknown";
+    }
+    const [month, day] = birthday.split("_");
+    return `${month} ${day}`;
+  }
+
   return (
     <div className="w-1/2 h-auto absolute top-1/2 translate-y-[-20%] z-20 left-0 select-none bg-opacity-30">
       <animated.div
@@ -89,7 +97,10 @@ export default function WaifuInfo({ waifu }: WaifuInfoProps) {
             className={`flex gap-2 items-center text-white text-lg`}
           >
             {getIcon(category)}
-            {waifu[category]} {getMeasurementUnit(category)}
+            {waifu[category] === "birthday"
+              ? convertBirthday(waifu[category])
+              : waifu[category]}{" "}
+            {getMeasurementUnit(category)}
           </animated.p>
         ))}
       </span>

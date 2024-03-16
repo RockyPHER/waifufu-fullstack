@@ -96,7 +96,7 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
       {openForm && (
         <Backdrop
           isOpen={openForm}
-          children={<WaifuForm setIsOpen={setOpenForm} />}
+          children={<WaifuForm editMode={false} setIsOpen={setOpenForm} />}
         />
       )}
       <div className="radial-gradient" />

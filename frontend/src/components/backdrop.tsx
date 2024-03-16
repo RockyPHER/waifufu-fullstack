@@ -42,7 +42,7 @@ export default function Backdrop({ children, isOpen }: BackdropProps) {
       {openBackdrop && (
         <animated.div
           style={{ ...props }}
-          className="w-screen h-screen absolute z-30 flex justify-center items-center bg-black bg-opacity-30 backdrop-blur-sm transition-all"
+          className="w-screen h-screen absolute z-30 top-0 left-0 flex justify-center items-center bg-black bg-opacity-30 backdrop-blur-sm transition-all"
         >
           {children}
         </animated.div>
