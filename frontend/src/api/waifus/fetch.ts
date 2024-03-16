@@ -1,38 +1,29 @@
-// import api from "../api";
-// import Waifu, { CreateWaifuData, UpdateWaifuData } from "./model";
-
 import waifusData from "../waifus.json";
 import Waifu, { CreateWaifuData, UpdateWaifuData, WaifuData } from "./model";
 
-// export async function getWaifus() {
-//   return await api.get<Waifu[]>("/waifus");
-// }
+export let waifus: Waifu[];
 
-// export async function createWaifu(data: CreateWaifuData) {
-//   return await api.post<Waifu>("/waifus", data);
-// }
+export function getWaifus() {
+  const storedWaifus = localStorage.getItem("waifus");
+  console.log("<fetch> Checking stored waifus...");
 
-// export async function updateWaifu(data: UpdateWaifuData) {
-//   return await api.put<Waifu>("/waifus", data);
-// }
-export let waifus: Waifu[] = JSON.parse(JSON.stringify(waifusData));
-
-console.log("waifus :" + waifus)
+  if (storedWaifus) {
+    waifus = JSON.parse(JSON.stringify(waifusData));
+    localStorage.setItem("waifus", JSON.stringify(waifus));
+    console.log("<fetch> LocalStorage waifus undefined -> Added waifus: ", waifus);
+    return waifus;
+  }
+  else {
+    waifus = JSON.parse(JSON.stringify(storedWaifus));
+    console.log("<fetch> LocalStorage waifus found: ", waifus);
+    return waifus;
+  }
+}
 
 export function backupWaifus() {
   waifus = JSON.parse(JSON.stringify(waifusData));
   localStorage.setItem("waifus", JSON.stringify(waifus));
-  return waifus;
-}
-
-export function getWaifus() {
-  const storedWaifus = localStorage.getItem("waifus");
-  if (storedWaifus === undefined) {
-    waifus = JSON.parse(storedWaifus)
-  } else {
-    waifus = JSON.parse(JSON.stringify(waifusData));
-    localStorage.setItem("waifus", JSON.stringify(waifus));
-  }
+  console.log("Waifus Reseted: ", waifus);
   return waifus;
 }
 

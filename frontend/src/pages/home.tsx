@@ -9,16 +9,11 @@ import {
 } from "lucide-react";
 import MenuButton from "../components/menuButton";
 import { useEffect, useRef, useState } from "react";
-import { MouseParallax } from "react-just-parallax";
 
-import image1 from "../public/images/1.jpeg";
-import image2 from "../public/images/2.jpg";
-import image3 from "../public/images/3.jpeg";
-import image4 from "../public/images/4.jpeg";
-import image5 from "../public/images/5.jpeg";
 import Backdrop from "../components/backdrop";
 import WaifuList from "../components/waifuList";
 import WaifuForm from "../components/waifuForm";
+import Background from "../components/background";
 
 interface HomeProps {
   onChange: boolean[];
@@ -64,11 +59,6 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
       setColorScheme(colorSchemes.light);
     }
   };
-
-  const backgrounds = [image1, image2, image3, image4, image5];
-  const [backgroundIndex, setBackgroundIndex] = useState(
-    Math.floor(Math.random() * backgrounds.length)
-  );
 
   const buttonThemes = {
     dark: {
@@ -124,15 +114,6 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setBackgroundIndex((prevIndex) => {
-        return (prevIndex + 1) % backgrounds.length;
-      });
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, []);
-  useEffect(() => {
     console.log("Color Scheme:", colorScheme);
     const root = document.documentElement;
     console.log("root: " + root);
@@ -167,23 +148,10 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
         <WaifuList setIsOpen={setOpenWaifuList} />
       </Backdrop>
       <Backdrop isOpen={openWaifuForm}>
-        <WaifuForm setIsOpen={setOpenWaifuForm} />
+        <WaifuForm editMode={false} setIsOpen={setOpenWaifuForm} />
       </Backdrop>
       {/* background */}
-      <MouseParallax
-        lerpEase={0.1}
-        strength={0.02}
-        isAbsolutelyPositioned
-        shouldResetPosition
-      >
-        <div
-          className="w-screen h-screen absolute top-0 left-0 bg-cover"
-          style={{
-            backgroundImage: `url(${backgrounds[backgroundIndex]})`,
-            transition: "background 0.5s ease-out",
-          }}
-        ></div>
-      </MouseParallax>
+      <Background />
       {/* main container */}
       <section
         className="w-full h-full absolute flex justify-start pt-20 items-start bg-cover"

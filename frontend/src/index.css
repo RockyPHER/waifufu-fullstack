@@ -160,7 +160,7 @@ select::-webkit-scrollbar-thumb {
   width: 50px;
 }
 
-tr:hover {
+tbody tr:hover {
   background-color: #2424242d;
 }
 tr {
@@ -168,18 +168,24 @@ tr {
   transition: all 0.1s ease-in-out;
   border-bottom: 1px solid #ffffff4f;
 }
-th {
+thead tr th {
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 0px 10px;
+  user-select: none;
   text-align: center;
   font-size: 1.2em;
   background-color: #24242462;
   border-right: 1px solid #ffffff4f;
 }
-table td .idCol {
+table tbody td.idCol {
+  user-select: none;
   text-align: center;
   vertical-align: middle;
-  display: flex;
 }
 .nameCol {
+  user-select: all;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;

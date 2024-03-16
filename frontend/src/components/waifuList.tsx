@@ -51,14 +51,8 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
     setOpenBackdrop(true);
   };
 
-  useEffect(() => {
-    setWaifus(getWaifus());
-    setNewWaifus(waifus);
-    console.log("Waifus updated:", waifus);
-  }, []);
-
   return (
-    <div className="w-[600px] max-h-[500px] flex flex-col overflow-hidden bg-white bg-opacity-50 rounded-xl">
+    <div className="w-[600px] min-h-[500px] max-h-[500px] flex flex-col overflow-hidden bg-white bg-opacity-50 rounded-xl">
       {openBackdrop && (
         <Backdrop isOpen={openBackdrop}>
           <WaifuForm
@@ -81,13 +75,15 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
         </button>
       </div>
       {/* body */}
-      <div className="px-5 py-2 overflow-y-auto">
+      <div className="overflow-y-auto">
         <table className="w-full">
           <thead>
-            <th>id</th>
-            <th>name</th>
-            <th>backgroundUrl</th>
-            <th>options</th>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>backgroundUrl</th>
+              <th>options</th>
+            </tr>
           </thead>
           <tbody>
             {newWaifus &&

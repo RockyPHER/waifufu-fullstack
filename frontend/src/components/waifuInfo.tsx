@@ -65,12 +65,14 @@ export default function WaifuInfo({ waifu }: WaifuInfoProps) {
     );
   });
 
-  function convertBirthday(birthday: string) {
-    if (birthday === "unknown_--") {
-      return "unknown";
+  function convertBirthday(birthday: string | undefined) {
+    if (birthday) {
+      if (birthday === "unknown_--") {
+        return "unknown";
+      }
+      const [month, day] = birthday.split("_");
+      return `${month} ${day}`;
     }
-    const [month, day] = birthday.split("_");
-    return `${month} ${day}`;
   }
 
   return (
@@ -97,9 +99,13 @@ export default function WaifuInfo({ waifu }: WaifuInfoProps) {
             className={`flex gap-2 items-center text-white text-lg`}
           >
             {getIcon(category)}
-            {waifu[category] === "birthday"
-              ? convertBirthday(waifu[category])
-              : waifu[category]}{" "}
+            {category === "origin" ? (
+              <a href={waifu.originUrl}>{waifu[category]}</a>
+            ) : category === "birthday" ? (
+              convertBirthday(waifu[category])
+            ) : (
+              waifu[category]
+            )}
             {getMeasurementUnit(category)}
           </animated.p>
         ))}

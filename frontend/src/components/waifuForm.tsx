@@ -54,9 +54,13 @@ export default function WaifuForm({
     (document.getElementById("age") as HTMLInputElement).value =
       waifu?.age?.toString() || "";
     (document.querySelector("#birth-month") as HTMLSelectElement).value =
-      waifu?.birthday?.split("_")[0] || "";
+      waifu?.birthday?.split("_")[0].toLowerCase() || "";
     (document.querySelector("#birth-day") as HTMLSelectElement).value =
       waifu?.birthday?.split("_")[1] || "";
+    (document.getElementById("origin") as HTMLInputElement).value =
+      waifu?.origin || "";
+    (document.getElementById("origin-url") as HTMLInputElement).value =
+      waifu?.originUrl || "";
     (document.getElementById("hair") as HTMLInputElement).value =
       waifu?.hairColor || "";
     (document.getElementById("eye") as HTMLInputElement).value =
@@ -65,6 +69,8 @@ export default function WaifuForm({
       waifu?.height?.toString() || "";
     (document.getElementById("weight") as HTMLInputElement).value =
       waifu?.weight?.toString() || "";
+    (document.getElementById("background") as HTMLInputElement).value =
+      waifu?.backgroundUrl || "";
   }
 
   function getFormValues() {
