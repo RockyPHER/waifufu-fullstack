@@ -30,7 +30,7 @@ test("Returns waifus when they are not found on local storage", async () => {
 })
 
 test("Returns waifus when local storage data is not in the expected format", async () => {
-    localStorage.setItem("waifus", JSON.stringify("waifus"));
+    localStorage.setItem("waifus", JSON.stringify([1, 2, 3]));
     const result = getWaifus();
     expect(result).toEqual(defaultWaifusData);
 })
