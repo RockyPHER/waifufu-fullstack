@@ -1,15 +1,8 @@
 import { getWaifus } from "../src/api/waifus/fetch";
-import { expect, test, vi } from "vitest";
-import waifusData from "../src/api/waifus.json";
+import { expect, test } from "vitest";
+import { defaultWaifusData, mockLocalStorage, mockWaifusData } from "./scripts";
 
-const defaultWaifusData = waifusData;
-const mockWaifusData = [
-    { id: 1, name: "Waifu 1" },
-    { id: 2, name: "Waifu 2" },
-    { id: 3, name: "Waifu 3" }
-]
 
-const mockLocalStorage: { [key: string]: string } = {};
 
 (global as any).localStorage = {
     getItem: (key: string) => mockLocalStorage[key] || null,
