@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { backupWaifus, getWaifus, updateWaifus } from "../api/waifus/fetch";
+import { useEffect, useRef, useState } from "react";
+import { deleteWaifus, getWaifus, resetWaifus } from "../api/waifus/fetch";
 import { Pencil, RotateCw, Save, Trash, Undo2, X } from "lucide-react";
-import Waifu, { UpdateWaifuData } from "../api/waifus/model";
+import { UpdateWaifuData, WaifuData } from "../api/waifus/model";
 import WaifuForm from "./waifuForm";
 import Backdrop from "./backdrop";
 
@@ -10,24 +10,43 @@ interface WaifuListProps {
 }
 
 export default function WaifuList({ setIsOpen }: WaifuListProps) {
-  const [waifus, setWaifus] = useState<Waifu[]>(getWaifus());
-  const [newWaifus, setNewWaifus] = useState<Waifu[]>(waifus);
+  const [updateList, setUpdateList] = useState(true);
+  const [waifus] = useState<WaifuData[]>((): WaifuData[] => {
+    if (updateList) {
+      setUpdateList(false);
+      return getWaifus();
+    }
+    return waifus;
+  });
+  const [newWaifus, setNewWaifus] = useState<WaifuData[]>(waifus);
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [waifuFormData, setWaifuFormData] = useState<UpdateWaifuData>();
+  const [waifusIdToDelete, setWaifusIdToDelete] = useState<number[]>([]);
+  const firstLoad = useRef(true);
+
+  useEffect(() => {
+    if (!firstLoad.current) {
+      if (!openBackdrop) setNewWaifus(getWaifus());
+    }
+    firstLoad.current = false;
+  }, [openBackdrop]);
 
   const handleDeleteWaifu = (index: number | number[]) => {
+    setWaifusIdToDelete(() => {
+      return Array.isArray(index) ? index : new Array(index);
+    });
     setNewWaifus((prevWaifus) => {
-      const updatedWaifus = Array.isArray(index)
+      const deletedWaifus = Array.isArray(index)
         ? prevWaifus.filter((waifu) => !index.includes(waifu.id))
         : prevWaifus.filter((waifu) => waifu.id !== index);
 
-      return updatedWaifus;
+      return deletedWaifus;
     });
   };
 
   const handleResetList = () => {
-    setNewWaifus(backupWaifus());
+    setNewWaifus(resetWaifus());
   };
 
   const handleUndoDelete = () => {
@@ -35,7 +54,9 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
   };
 
   const handleSaveList = () => {
-    updateWaifus(newWaifus);
+    if (waifusIdToDelete.length > 0) {
+      deleteWaifus(waifusIdToDelete);
+    }
     setIsOpen(false);
   };
 
@@ -75,7 +96,7 @@ export default function WaifuList({ setIsOpen }: WaifuListProps) {
         </button>
       </div>
       {/* body */}
-      <div className="overflow-y-auto">
+      <div className="overflow-y-auto h-[300px]">
         <table className="w-full">
           <thead>
             <tr>

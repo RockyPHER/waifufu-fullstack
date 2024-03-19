@@ -12,7 +12,7 @@ import {
   Trash,
 } from "lucide-react";
 import WaifuInfo from "../components/waifuInfo";
-import { getWaifus, updateWaifus } from "../api/waifus/fetch";
+import { deleteWaifus, getWaifus, updateWaifus } from "../api/waifus/fetch";
 import WaifuCard from "../components/waifuCard";
 import { MouseParallax } from "react-just-parallax";
 import { WaifuData } from "../api/waifus/model";
@@ -58,7 +58,7 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
   function handleDelete() {
     const id = waifuData[currentIndex].id;
     const newWaifus = waifuData.filter((waifu) => waifu.id !== id);
-    updateWaifus(newWaifus);
+    deleteWaifus([id]);
     setWaifuData(newWaifus);
     setCurrentIndex((prev: number) =>
       prev === 0 ? 0 : (prev - 1) % totalPages
