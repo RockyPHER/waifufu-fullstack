@@ -154,7 +154,11 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
       {/* pagination buttons */}
       <div className="w-auto h-auto z-20 absolute left-1/2 translate-x-[-50%] bottom-6 flex gap-5 items-center justify-center bg-black  bg-opacity-30 rounded-full">
         {new Array(totalPages).fill(0).map((_, index) => (
-          <button onClick={() => setCurrentIndex(index)} className="">
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className=""
+          >
             <Circle
               fill={currentIndex === index ? "white" : "transparent"}
               style={{
@@ -163,7 +167,6 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
                 transition: "all 0.3s ease-in-out",
                 transform: currentIndex === index ? "scale(1.5)" : "scale(1)",
               }}
-              key={index}
             />
           </button>
         ))}

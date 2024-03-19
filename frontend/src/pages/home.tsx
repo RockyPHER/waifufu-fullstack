@@ -196,6 +196,7 @@ export default function Home({ onChange, setOnChange }: HomeProps) {
         <MenuButton {...buttonConfigs}>
           {Array.from({ length: optionIcon.length }, (_, index) => (
             <button
+              key={index}
               className="dropdown w-full h-auto py-2 px-2 flex justify-between items-center border-b text-xl]"
               style={{
                 borderColor: `${colorScheme.surface_1}`,
