@@ -2,7 +2,7 @@ import { Check, Save, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { schema } from "../api/waifus/schema";
 import Backdrop from "./backdrop";
-import { createWaifu, updateWaifus } from "../api/waifus/fetch";
+import { createWaifus, updateWaifus } from "../api/waifus/fetch";
 import { WaifuData } from "../api/waifus/model";
 
 interface WaifuFormProps {
@@ -74,58 +74,64 @@ export default function WaifuForm({
   }
 
   function getFormValues() {
-    let waifu = {
-      id: editMode ? getWaifuId() : Math.floor(Math.random() * 100000),
-      name: (
-        document.getElementById("name") as HTMLInputElement & { value: string }
-      ).value,
-      age: (
-        document.getElementById("age") as HTMLInputElement & { value: number }
-      )?.value,
-      birthday:
-        (
-          document.querySelector("#birth-month") as HTMLSelectElement & {
-            value: string;
-          }
-        ).value +
-        "_" +
-        (
-          document.querySelector("#birth-day") as HTMLSelectElement & {
+    let waifu = [
+      {
+        id: editMode ? getWaifuId() : Math.floor(Math.random() * 100000),
+        name: (
+          document.getElementById("name") as HTMLInputElement & {
             value: string;
           }
         ).value,
-      origin: (
-        document.getElementById("origin") as HTMLInputElement & {
-          value: string;
-        }
-      ).value,
-      originUrl: (
-        document.getElementById("origin-url") as HTMLInputElement & {
-          value: string;
-        }
-      ).value,
-      hairColor: (
-        document.getElementById("hair") as HTMLInputElement & { value: string }
-      ).value,
-      eyeColor: (
-        document.getElementById("eye") as HTMLInputElement & { value: string }
-      ).value,
-      height: (
-        document.getElementById("height") as HTMLInputElement & {
-          value: number;
-        }
-      ).value,
-      weight: (
-        document.getElementById("weight") as HTMLInputElement & {
-          value: number;
-        }
-      ).value,
-      backgroundUrl: (
-        document.getElementById("background") as HTMLInputElement & {
-          value: string;
-        }
-      ).value,
-    };
+        age: (
+          document.getElementById("age") as HTMLInputElement & { value: number }
+        )?.value,
+        birthday:
+          (
+            document.querySelector("#birth-month") as HTMLSelectElement & {
+              value: string;
+            }
+          ).value +
+          "_" +
+          (
+            document.querySelector("#birth-day") as HTMLSelectElement & {
+              value: string;
+            }
+          ).value,
+        origin: (
+          document.getElementById("origin") as HTMLInputElement & {
+            value: string;
+          }
+        ).value,
+        originUrl: (
+          document.getElementById("origin-url") as HTMLInputElement & {
+            value: string;
+          }
+        ).value,
+        hairColor: (
+          document.getElementById("hair") as HTMLInputElement & {
+            value: string;
+          }
+        ).value,
+        eyeColor: (
+          document.getElementById("eye") as HTMLInputElement & { value: string }
+        ).value,
+        height: (
+          document.getElementById("height") as HTMLInputElement & {
+            value: number;
+          }
+        ).value,
+        weight: (
+          document.getElementById("weight") as HTMLInputElement & {
+            value: number;
+          }
+        ).value,
+        backgroundUrl: (
+          document.getElementById("background") as HTMLInputElement & {
+            value: string;
+          }
+        ).value,
+      },
+    ];
 
     return waifu;
   }
@@ -170,7 +176,7 @@ export default function WaifuForm({
           setSuccess(false);
         }, 500);
       } else {
-        createWaifu(getFormValues());
+        createWaifus(getFormValues());
         setTimeout(() => {
           setIsOpen(false);
           setSuccess(false);

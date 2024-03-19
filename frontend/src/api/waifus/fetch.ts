@@ -69,6 +69,14 @@ export function createWaifus(waifuInput: any[]) {
   return newWaifus;
 }
 
+export function resetWaifus() {
+  localStorage.setItem("waifus", JSON.stringify(waifusData))
+  const storedWaifus = localStorage.getItem("waifus")
+  if (!storedWaifus) {
+    throw new Error("Waifu not found");
+  }
+  return JSON.parse(storedWaifus);
+}
 
 
 

@@ -2,7 +2,6 @@
 // import { Slider } from "../components/slider";
 // import { AxiosError, AxiosResponse } from "axios";
 // import Waifu from "../api/waifus/model";
-// import { getWaifus } from "../api/waifus/fetch";
 import { useEffect, useState } from "react";
 import {
   ChevronLeft,
@@ -16,7 +15,7 @@ import WaifuInfo from "../components/waifuInfo";
 import { getWaifus, updateWaifus } from "../api/waifus/fetch";
 import WaifuCard from "../components/waifuCard";
 import { MouseParallax } from "react-just-parallax";
-import Waifu from "../api/waifus/model";
+import { WaifuData } from "../api/waifus/model";
 import Backdrop from "../components/backdrop";
 import WaifuForm from "../components/waifuForm";
 
@@ -32,14 +31,10 @@ export function Slider({ onChange, setOnChange }: SliderProps) {
   //   const waifusData = MyQuery.data?.data;
   // ******** COMMENTED FOR DEPLOYMENT ********
 
-  const [waifuData, setWaifuData] = useState<Waifu[]>(getWaifus());
+  const [waifuData, setWaifuData] = useState<WaifuData[]>(getWaifus());
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalPages = waifuData?.length || 1;
   const [openForm, setOpenForm] = useState(false);
-
-  useEffect(() => {
-    setWaifuData(getWaifus());
-  }, []);
 
   function next() {
     setCurrentIndex((prev: number) => (prev + 1) % totalPages);

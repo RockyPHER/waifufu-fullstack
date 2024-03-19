@@ -7,12 +7,12 @@ import {
   Ruler,
   Weight,
 } from "lucide-react";
-import Waifu from "../api/waifus/model";
+import { WaifuData } from "../api/waifus/model";
 import { animated, useSprings } from "@react-spring/web";
 import { useEffect } from "react";
 
 interface WaifuInfoProps {
-  waifu: Waifu;
+  waifu: WaifuData;
 }
 
 export default function WaifuInfo({ waifu }: WaifuInfoProps) {

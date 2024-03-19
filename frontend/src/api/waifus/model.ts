@@ -1,5 +1,4 @@
 export default interface Waifu {
-  [key: string]: any;
   id: number;
   name: string;
   age?: number;
@@ -17,6 +16,7 @@ export default interface Waifu {
 }
 
 export interface WaifuData {
+  [key: string]: any;
   id: number;
   name: string;
   age?: number;
