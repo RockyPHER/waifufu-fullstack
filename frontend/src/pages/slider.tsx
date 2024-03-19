@@ -2,7 +2,7 @@
 // import { Slider } from "../components/slider";
 // import { AxiosError, AxiosResponse } from "axios";
 // import Waifu from "../api/waifus/model";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -12,7 +12,7 @@ import {
   Trash,
 } from "lucide-react";
 import WaifuInfo from "../components/waifuInfo";
-import { deleteWaifus, getWaifus, updateWaifus } from "../api/waifus/fetch";
+import { deleteWaifus, getWaifus } from "../api/waifus/fetch";
 import WaifuCard from "../components/waifuCard";
 import { MouseParallax } from "react-just-parallax";
 import { WaifuData } from "../api/waifus/model";
