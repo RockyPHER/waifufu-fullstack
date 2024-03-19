@@ -1,7 +1,6 @@
 import { expect, test } from "vitest";
 import { deleteWaifus } from "../src/api/waifus/fetch";
 import { mockLocalStorage, mockWaifusData } from "./scripts";
-import { error } from "console";
 
 (global as any).localStorage = {
     getItem: (key: string) => mockLocalStorage[key] || null,
@@ -24,12 +23,10 @@ test("Returns deleted waifu if only one index is gived", async () => {
 
 test("Throws error if indices are invalid", async () => {
     localStorage.setItem("waifus", JSON.stringify(mockWaifusData));
-    const result = deleteWaifus([4, 6, 7]);
-    expect(result).toBe(error("Invalid indices: 4, 6, 7"));
+    expect(() => deleteWaifus([4, 6, 7])).toThrowError(/^Invalid indices: 4, 6, 7/);
 })
 
 test("Throws error if at least one index is invalid", async () => {
     localStorage.setItem("waifus", JSON.stringify(mockWaifusData));
-    const result = deleteWaifus([1, 4, 6, 7]);
-    expect(result).toBe(error("Invalid indices: 4, 6, 7"));
+    expect(() => deleteWaifus([1, 4, 6, 7])).toThrowError(/^Invalid indices: 4, 6, 7/);
 })

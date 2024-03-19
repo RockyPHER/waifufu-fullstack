@@ -16,6 +16,12 @@ test("Returns updated waifu if id is found", async () => {
     expect(result).toEqual(expectedResult);
 })
 
-// test("Throws error if data is not in the expected format", async () => { })
+test("Throws error if input is not in the expected format", async () => {
+    const updatedWaifu = [{ x: "xD" }];
+    expect(() => updateWaifus(updatedWaifu)).toThrowError(/^Waifu is not in the expected format/);
+})
 
-// test("Throws error if id is not found", async () => { })
+test("Throws error if id is not found", async () => {
+    const updatedWaifu = [{ id: 10000, name: "Updated Waifu 1" }];
+    expect(() => updateWaifus(updatedWaifu)).toThrowError(/^Waifu not found/);
+})

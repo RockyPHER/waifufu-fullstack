@@ -2,8 +2,6 @@ import { getWaifus } from "../src/api/waifus/fetch";
 import { expect, test } from "vitest";
 import { defaultWaifusData, mockLocalStorage, mockWaifusData } from "./scripts";
 
-
-
 (global as any).localStorage = {
     getItem: (key: string) => mockLocalStorage[key] || null,
     setItem: (key: string, value: string) => { mockLocalStorage[key] = value; },
