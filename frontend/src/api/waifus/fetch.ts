@@ -45,6 +45,29 @@ export function deleteWaifus(indices: number[]) {
   }
 }
 
+export function updateWaifus(waifusInput: WaifuData[]) {
+  try {
+    if (!isWaifuDataFormat(waifusInput)) {
+      throw new Error("Data is not in the expected format");
+    }
+    const storedWaifus = getWaifus();
+    const foundWaifus = storedWaifus.filter(waifu => waifusInput.find(waifuInput => waifuInput.id === waifu.id));
+    if (foundWaifus.length !== waifusInput.length) {
+      throw new Error("Waifu not found");
+    }
+    const waifusSummary = [...foundWaifus, ...waifusInput];
+    const newWaifus = storedWaifus.map((waifu) => {
+      const waifuInput = waifusInput.find(waifuInput => waifuInput.id === waifu.id)
+      return !waifuInput ? waifu : waifuInput
+    })
+    localStorage.setItem("waifus", JSON.stringify(newWaifus));
+    return waifusSummary as WaifuData[];
+  } catch (err) {
+    console.error(err);
+    return err
+  }
+}
+
 
 
 

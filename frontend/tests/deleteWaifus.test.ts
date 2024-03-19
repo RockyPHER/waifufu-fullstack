@@ -16,6 +16,12 @@ test("Returns deleted waifus if indices are valid", async () => {
     expect(result).toEqual([mockWaifusData[0], mockWaifusData[1]]);
 })
 
+test("Returns deleted waifu if only one index is gived", async () => {
+    localStorage.setItem("waifus", JSON.stringify(mockWaifusData));
+    const result = deleteWaifus([1]);
+    expect(result).toEqual([mockWaifusData[0]]);
+})
+
 test("Throws error if indices are invalid", async () => {
     localStorage.setItem("waifus", JSON.stringify(mockWaifusData));
     const result = deleteWaifus([4, 6, 7]);
