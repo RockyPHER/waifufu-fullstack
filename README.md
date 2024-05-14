@@ -1,6 +1,6 @@
-# WAIFUFU
+# WAIFUFU.
+## CRUD with Waifus showcase.
 
-Waifu showcase CRUD.
 | MAIN PAGE | WAIFUS SHOWCASE |
 | :---: | :---: |
 | ![image](https://github.com/RockyPHER/waifufu-fullstack/assets/132969260/381d6f6c-66f3-4b4d-8bc4-652083a14b6c) | ![image](https://github.com/RockyPHER/waifufu-fullstack/assets/132969260/ef6bd167-82d1-4b46-825c-96de7c363f39) | 
