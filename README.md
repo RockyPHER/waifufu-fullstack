@@ -1,6 +1,15 @@
 # WAIFUFU
 
-My first CRUD project made for learn.
+Waifu showcase CRUD.
+| MAIN PAGE | WAIFUS SHOWCASE |
+| :---: | :---: |
+| ![image](https://github.com/RockyPHER/waifufu-fullstack/assets/132969260/381d6f6c-66f3-4b4d-8bc4-652083a14b6c) | ![image](https://github.com/RockyPHER/waifufu-fullstack/assets/132969260/ef6bd167-82d1-4b46-825c-96de7c363f39) | 
+
+| ADD WAIFU | WAIFU LIST | 
+| :---: | :---: |
+| ![image](https://github.com/RockyPHER/waifufu-fullstack/assets/132969260/416f61c9-330b-4e7e-895e-2df1fa5dd297) | ![image](https://github.com/RockyPHER/waifufu-fullstack/assets/132969260/cbff8958-43b1-4284-83f8-e15eed5e42d4) |
+
+</br>
 
 I choose JavaScript because has a easy syntax and has alot of libraries. 
 I don't wanted to pay too much time learning about the language, my main goal was to learn how the frontend and backend comunicate.
