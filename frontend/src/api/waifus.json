@@ -9,8 +9,15 @@
     "origin": "Vocaloid",
     "hairColor": "Teal",
     "eyeColor": "Turquoise",
-    "backgroundUrl": "https://r4.wallpaperflare.com/wallpaper/997/47/663/anime-anime-girls-hatsune-miku-blue-hair-wallpaper-4b06ec1d63512f3945c49ba94d4c7cb0.jpg",
-    "heroUrl": "https://i.postimg.cc/wjzbsThW/miku.png"
+    "backgroundUrl": "/Hatsune Miku.png",
+    "description": "A crystalline digital idol with a stage-ready glow and unmistakable turquoise silhouette.",
+    "favorite": true,
+    "visual": {
+      "accentColor": "#39C5BB",
+      "focalPoint": "58% 38%",
+      "zoom": 1,
+      "overlayStrength": 0.55
+    }
   },
   {
     "id": 2,
@@ -19,11 +26,17 @@
     "height": 164,
     "weight": 50,
     "birthday": "March_5",
-    "backgroundUrl": "https://w.forfun.com/fetch/c2/c23ecac50fe951bf417a6351cbff798d.jpeg",
-    "heroUrl": "https://i.postimg.cc/25zFC14D/marin.png",
+    "backgroundUrl": "/Marin Kitagawa.png",
     "origin": "Sono Bisque Doll",
     "hairColor": "Blonde",
-    "eyeColor": "Dark Pink"
+    "eyeColor": "Dark Pink",
+    "description": "Bright, confident and camera-ready, Marin brings cosplay energy to the archive.",
+    "visual": {
+      "accentColor": "#F472B6",
+      "focalPoint": "55% 42%",
+      "zoom": 1.02,
+      "overlayStrength": 0.58
+    }
   },
   {
     "id": 3,
@@ -32,11 +45,17 @@
     "height": 143,
     "weight": 43,
     "birthday": "March_30",
-    "backgroundUrl": "https://wallpapercave.com/wp/wp6405922.jpg",
-    "heroUrl": "https://i.postimg.cc/yW4ctxV2/rei.png",
+    "backgroundUrl": "/Rei Ayanami.png",
     "origin": "Neon Genesis Evangelion",
     "hairColor": "Celeste",
-    "eyeColor": "Red"
+    "eyeColor": "Red",
+    "description": "Quiet, severe and iconic, Rei adds a cool sci-fi signal to the lineup.",
+    "visual": {
+      "accentColor": "#93C5FD",
+      "focalPoint": "50% 36%",
+      "zoom": 1,
+      "overlayStrength": 0.62
+    }
   },
   {
     "id": 4,
@@ -45,11 +64,17 @@
     "height": 161,
     "weight": 60,
     "birthday": "September_25",
-    "backgroundUrl": "https://r4.wallpaperflare.com/wallpaper/923/685/115/violet-evergarden-anime-girls-violet-evergarden-anime-water-wallpaper-2d93d221e673ed66ad660ded7e18b0ea.jpg",
-    "heroUrl": "https://i.postimg.cc/8kFY2Ypb/violet.png",
+    "backgroundUrl": "/Violet.png",
     "origin": "Violet Evergarden",
     "hairColor": "Blonde",
-    "eyeColor": "Blue"
+    "eyeColor": "Blue",
+    "description": "Elegant and cinematic, Violet carries a softer prestige-drama frame.",
+    "visual": {
+      "accentColor": "#FBBF24",
+      "focalPoint": "54% 40%",
+      "zoom": 1,
+      "overlayStrength": 0.5
+    }
   },
   {
     "id": 5,
@@ -58,11 +83,17 @@
     "height": 170,
     "weight": 57,
     "birthday": "unknown_--",
-    "backgroundUrl": "https://images4.alphacoders.com/908/908470.jpg",
-    "heroUrl": "https://i.postimg.cc/T2Zsfchv/zero.png",
+    "backgroundUrl": "/Zero Two.png",
     "origin": "Darling in the FRANXX",
     "hairColor": "Pink",
-    "eyeColor": "Emerald"
+    "eyeColor": "Emerald",
+    "description": "A fierce neon-pink centerpiece with a dangerous, high-contrast presence.",
+    "visual": {
+      "accentColor": "#FB7185",
+      "focalPoint": "52% 38%",
+      "zoom": 1.04,
+      "overlayStrength": 0.57
+    }
   },
   {
     "id": 6,
@@ -71,10 +102,16 @@
     "height": 148,
     "weight": 47,
     "birthday": "December_4",
-    "backgroundUrl": "https://images6.alphacoders.com/996/996949.jpg",
-    "heroUrl": "https://i.postimg.cc/SsPWLVHS/megumin.png",
+    "backgroundUrl": "/Megumi.png",
     "origin": "KonoSuba",
     "hairColor": "Black",
-    "eyeColor": "Red"
+    "eyeColor": "Red",
+    "description": "A compact burst of crimson magic, chaos and theatrical timing.",
+    "visual": {
+      "accentColor": "#EF6464",
+      "focalPoint": "52% 35%",
+      "zoom": 1.02,
+      "overlayStrength": 0.6
+    }
   }
 ]

@@ -12,6 +12,7 @@ node_modules/
 dist
 dist-ssr
 *.local
+frontend/.edge-responsive-profile/
 
 # Editor directories and files
 .vscode/*
